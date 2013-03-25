@@ -33,9 +33,13 @@
 namespace glm{
 namespace detail
 {
-	GLM_FUNC_QUALIFIER float overflow()
+	GLM_FUNC_QUALIFIER float overflow() GLM_FUNC_POST
 	{
-		volatile float f = 1e10;
+#		ifdef _AMP_H
+			float f = 1e10;
+#		else
+			volatile float f = 1e10;
+#		endif
 
 		for(int i = 0; i < 10; ++i)	
 			f *= f;             // this will overflow before
@@ -43,7 +47,7 @@ namespace detail
 		return f;
 	}
 
-	GLM_FUNC_QUALIFIER float toFloat32(hdata value)
+	GLM_FUNC_QUALIFIER float toFloat32(hdata value) GLM_FUNC_POST
 	{
 		int s = (value >> 15) & 0x00000001;
 		int e = (value >> 10) & 0x0000001f;
@@ -117,7 +121,7 @@ namespace detail
 		return Result.f;
 	}
 
-	GLM_FUNC_QUALIFIER hdata toFloat16(float const & f)
+	GLM_FUNC_QUALIFIER hdata toFloat16(float const & f) GLM_FUNC_POST
 	{
 		uif Entry;
 		Entry.f = f;
@@ -252,16 +256,16 @@ namespace detail
 		}
 	}
 
-	GLM_FUNC_QUALIFIER half::half() :
+	GLM_FUNC_QUALIFIER half::half() GLM_FUNC_POST :
 		data(0)
 	{}
 
-	GLM_FUNC_QUALIFIER half::half(half const & s) :
+	GLM_FUNC_QUALIFIER half::half(half const & s) GLM_FUNC_POST :
 		data(s.data)
 	{}
 
 	template <typename U>
-	GLM_FUNC_QUALIFIER half::half(U const & s) :
+	GLM_FUNC_QUALIFIER half::half(U const & s) GLM_FUNC_POST :
 		data(toFloat16(float(s)))
 	{}
 /*
@@ -272,50 +276,50 @@ namespace detail
 	}
 */
 
-	GLM_FUNC_QUALIFIER half::operator float() const
+	GLM_FUNC_QUALIFIER half::operator float() const GLM_FUNC_POST
 	{
 		return toFloat32(this->data);
 	}
 
 	// Unary updatable operators
-	GLM_FUNC_QUALIFIER half& half::operator= (half const & s)
+	GLM_FUNC_QUALIFIER half& half::operator= (half const & s) GLM_FUNC_POST
 	{
 		data = s.data;
 		return *this;
 	}
 
-	GLM_FUNC_QUALIFIER half& half::operator+=(half const & s)
+	GLM_FUNC_QUALIFIER half& half::operator+=(half const & s) GLM_FUNC_POST
 	{
 		data = toFloat16(toFloat32(data) + toFloat32(s.data));
 		return *this;
 	}
 
-	GLM_FUNC_QUALIFIER half& half::operator-=(half const & s)
+	GLM_FUNC_QUALIFIER half& half::operator-=(half const & s) GLM_FUNC_POST
 	{
 		data = toFloat16(toFloat32(data) - toFloat32(s.data));
 		return *this;
 	}
 
-	GLM_FUNC_QUALIFIER half& half::operator*=(half const & s)
+	GLM_FUNC_QUALIFIER half& half::operator*=(half const & s) GLM_FUNC_POST
 	{
-		data = toFloat16(toFloat32(data) * toFloat32(s.data));		
+		data = toFloat16(toFloat32(data) * toFloat32(s.data));
 		return *this;
 	}
 
-	GLM_FUNC_QUALIFIER half& half::operator/=(half const & s)
+	GLM_FUNC_QUALIFIER half& half::operator/=(half const & s) GLM_FUNC_POST
 	{
 		data = toFloat16(toFloat32(data) / toFloat32(s.data));
 		return *this;
 	}
 
-	GLM_FUNC_QUALIFIER half& half::operator++()
+	GLM_FUNC_QUALIFIER half& half::operator++() GLM_FUNC_POST
 	{
 		float Casted = toFloat32(data);
 		this->data = toFloat16(++Casted);
 		return *this;
 	}
 
-	GLM_FUNC_QUALIFIER half& half::operator--()
+	GLM_FUNC_QUALIFIER half& half::operator--() GLM_FUNC_POST
 	{
 		float Casted = toFloat32(data);
 		this->data = toFloat16(--Casted);
@@ -325,38 +329,38 @@ namespace detail
 	//////////////////////////////////////
 	// Binary arithmetic operators
 
-	GLM_FUNC_QUALIFIER detail::half operator+ (detail::half const & s1, detail::half const & s2)
+	GLM_FUNC_QUALIFIER detail::half operator+ (detail::half const & s1, detail::half const & s2) GLM_FUNC_POST
 	{
 		return detail::half(float(s1) + float(s2));
 	}
 
-	GLM_FUNC_QUALIFIER detail::half operator- (detail::half const & s1, detail::half const & s2)
+	GLM_FUNC_QUALIFIER detail::half operator- (detail::half const & s1, detail::half const & s2) GLM_FUNC_POST
 	{
 		return detail::half(float(s1) - float(s2));
 	}
 
-	GLM_FUNC_QUALIFIER detail::half operator* (detail::half const & s1, detail::half const & s2)
+	GLM_FUNC_QUALIFIER detail::half operator* (detail::half const & s1, detail::half const & s2) GLM_FUNC_POST
 	{
 		return detail::half(float(s1) * float(s2));
 	}
 
-	GLM_FUNC_QUALIFIER detail::half operator/ (detail::half const & s1, detail::half const & s2)
+	GLM_FUNC_QUALIFIER detail::half operator/ (detail::half const & s1, detail::half const & s2) GLM_FUNC_POST
 	{
 		return detail::half(float(s1) / float(s2));
 	}
 
 	// Unary constant operators
-	GLM_FUNC_QUALIFIER detail::half operator- (detail::half const & s)
+	GLM_FUNC_QUALIFIER detail::half operator- (detail::half const & s) GLM_FUNC_POST
 	{
 		return detail::half(-float(s));
 	}
 
-	GLM_FUNC_QUALIFIER detail::half operator-- (detail::half const & s, int)
+	GLM_FUNC_QUALIFIER detail::half operator-- (detail::half const & s, int) GLM_FUNC_POST
 	{
 		return detail::half(float(s) - 1.0f);
 	}
 
-	GLM_FUNC_QUALIFIER detail::half operator++ (detail::half const & s, int)
+	GLM_FUNC_QUALIFIER detail::half operator++ (detail::half const & s, int) GLM_FUNC_POST
 	{
 		return detail::half(float(s) + 1.0f);
 	}
@@ -365,7 +369,7 @@ namespace detail
 	(
 		detail::half const & x, 
 		detail::half const & y
-	)
+	) GLM_FUNC_POST
 	{
 		return x._data() == y._data();
 	}
@@ -374,7 +378,7 @@ namespace detail
 	(
 		detail::half const & x, 
 		detail::half const & y
-	)
+	) GLM_FUNC_POST
 	{
 		return x._data() != y._data();
 	}
@@ -383,7 +387,7 @@ namespace detail
 	(
 		detail::half const & x, 
 		detail::half const & y
-	)
+	) GLM_FUNC_POST
 	{
 		return float(x) < float(y);
 	}
@@ -392,7 +396,7 @@ namespace detail
 	(
 		detail::half const & x, 
 		detail::half const & y
-	)
+	) GLM_FUNC_POST
 	{
 		return float(x) <= float(y);
 	}
@@ -401,7 +405,7 @@ namespace detail
 	(
 		detail::half const & x, 
 		detail::half const & y
-	)
+	) GLM_FUNC_POST
 	{
 		return float(x) > float(y);
 	}
@@ -410,7 +414,7 @@ namespace detail
 	(
 		detail::half const & x, 
 		detail::half const & y
-	)
+	) GLM_FUNC_POST
 	{
 		return float(x) >= float(y);
 	}

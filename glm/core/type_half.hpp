@@ -37,79 +37,79 @@ namespace detail
 {
 	typedef short hdata;
 
-	GLM_FUNC_DECL float toFloat32(hdata value);
-	GLM_FUNC_DECL hdata toFloat16(float const & value);
+	GLM_FUNC_DECL float toFloat32(hdata value) GLM_FUNC_POST;
+	GLM_FUNC_DECL hdata toFloat16(float const & value) GLM_FUNC_POST;
 
 	class half
 	{
 	public: 
 		// Constructors
-		GLM_FUNC_DECL half();
-		GLM_FUNC_DECL half(half const & s);
+		GLM_FUNC_DECL half() GLM_FUNC_POST;
+		GLM_FUNC_DECL half(half const & s) GLM_FUNC_POST;
 			
 		template <typename U>
-		GLM_FUNC_DECL explicit half(U const & s);
+		GLM_FUNC_DECL explicit half(U const & s) GLM_FUNC_POST;
 
 		// Cast
 		//template <typename U>
 		//GLM_FUNC_DECL operator U() const;
-		GLM_FUNC_DECL operator float() const;
+		GLM_FUNC_DECL operator float() const GLM_FUNC_POST;
 
 		// Unary updatable operators
-		GLM_FUNC_DECL half& operator= (half const & s);
-		GLM_FUNC_DECL half& operator+=(half const & s);
-		GLM_FUNC_DECL half& operator-=(half const & s);
-		GLM_FUNC_DECL half& operator*=(half const & s);
-		GLM_FUNC_DECL half& operator/=(half const & s);
-		GLM_FUNC_DECL half& operator++();
-		GLM_FUNC_DECL half& operator--();
+		GLM_FUNC_DECL half& operator= (half const & s) GLM_FUNC_POST;
+		GLM_FUNC_DECL half& operator+=(half const & s) GLM_FUNC_POST;
+		GLM_FUNC_DECL half& operator-=(half const & s) GLM_FUNC_POST;
+		GLM_FUNC_DECL half& operator*=(half const & s) GLM_FUNC_POST;
+		GLM_FUNC_DECL half& operator/=(half const & s) GLM_FUNC_POST;
+		GLM_FUNC_DECL half& operator++() GLM_FUNC_POST;
+		GLM_FUNC_DECL half& operator--() GLM_FUNC_POST;
 	
-		GLM_FUNC_DECL float toFloat() const{return toFloat32(data);}
+		GLM_FUNC_DECL float toFloat() const GLM_FUNC_POST {return toFloat32(data);}
 
-		GLM_FUNC_DECL hdata _data() const{return data;}
+		GLM_FUNC_DECL hdata _data() const GLM_FUNC_POST {return data;}
 
 	private:
 		hdata data;
 	};
 
-	GLM_FUNC_DECL half operator+ (half const & s1, half const & s2);
+	GLM_FUNC_DECL half operator+ (half const & s1, half const & s2) GLM_FUNC_POST;
 
-	GLM_FUNC_DECL half operator- (half const & s1, half const & s2);
+	GLM_FUNC_DECL half operator- (half const & s1, half const & s2) GLM_FUNC_POST;
 
-	GLM_FUNC_DECL half operator* (half const & s1, half const & s2);
+	GLM_FUNC_DECL half operator* (half const & s1, half const & s2) GLM_FUNC_POST;
 
-	GLM_FUNC_DECL half operator/ (half const & s1, half const & s2);
+	GLM_FUNC_DECL half operator/ (half const & s1, half const & s2) GLM_FUNC_POST;
 
 	// Unary constant operators
-	GLM_FUNC_DECL half operator- (half const & s);
+	GLM_FUNC_DECL half operator- (half const & s) GLM_FUNC_POST;
 
-	GLM_FUNC_DECL half operator-- (half const & s, int);
+	GLM_FUNC_DECL half operator-- (half const & s, int) GLM_FUNC_POST;
 
-	GLM_FUNC_DECL half operator++ (half const & s, int);
+	GLM_FUNC_DECL half operator++ (half const & s, int) GLM_FUNC_POST;
 
 	GLM_FUNC_DECL bool operator==(
 		detail::half const & x, 
-		detail::half const & y);
+		detail::half const & y) GLM_FUNC_POST;
 
 	GLM_FUNC_DECL bool operator!=(
 		detail::half const & x, 
-		detail::half const & y);
+		detail::half const & y) GLM_FUNC_POST;
 
 	GLM_FUNC_DECL bool operator<(
 		detail::half const & x, 
-		detail::half const & y);
+		detail::half const & y) GLM_FUNC_POST;
 
 	GLM_FUNC_DECL bool operator<=(
 		detail::half const & x, 
-		detail::half const & y);
+		detail::half const & y) GLM_FUNC_POST;
 
 	GLM_FUNC_DECL bool operator>(
 		detail::half const & x, 
-		detail::half const & y);
+		detail::half const & y) GLM_FUNC_POST;
 
 	GLM_FUNC_DECL bool operator>=(
 		detail::half const & x, 
-		detail::half const & y);
+		detail::half const & y) GLM_FUNC_POST;
 
 }//namespace detail
 }//namespace glm

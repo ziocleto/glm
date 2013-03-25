@@ -709,6 +709,11 @@
 
 #define GLM_FUNC_DECL GLM_CUDA_FUNC_DECL
 #define GLM_FUNC_QUALIFIER GLM_CUDA_FUNC_DEF GLM_INLINE
+#ifdef _AMP_H
+#	define GLM_FUNC_POST restrict(amp, cpu)
+#else
+#	define GLM_FUNC_POST
+#endif//_AMP_H
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // Swizzle operators

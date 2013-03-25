@@ -29,7 +29,7 @@
 #define VECTORIZE2_VEC(func) \
 	template <typename T> \
 	GLM_FUNC_QUALIFIER detail::tvec2<T> func( \
-		detail::tvec2<T> const & v) \
+		detail::tvec2<T> const & v) GLM_FUNC_POST \
 	{ \
 		return detail::tvec2<T>( \
 			func(v.x), \
@@ -39,7 +39,7 @@
 #define VECTORIZE3_VEC(func) \
 	template <typename T> \
 	GLM_FUNC_QUALIFIER detail::tvec3<T> func( \
-		detail::tvec3<T> const & v) \
+		detail::tvec3<T> const & v) GLM_FUNC_POST \
 	{ \
 		return detail::tvec3<T>( \
 			func(v.x), \
@@ -50,7 +50,7 @@
 #define VECTORIZE4_VEC(func) \
 	template <typename T> \
 	GLM_FUNC_QUALIFIER detail::tvec4<T> func( \
-		detail::tvec4<T> const & v) \
+		detail::tvec4<T> const & v) GLM_FUNC_POST \
 	{ \
 		return detail::tvec4<T>( \
 			func(v.x), \
@@ -70,7 +70,7 @@
 	( \
 		detail::tvec2<T> const & x,  \
 		typename detail::tvec2<T>::value_type const & y \
-	) \
+	) GLM_FUNC_POST \
 	{ \
 		return detail::tvec2<T>( \
 			func(x.x, y), \
@@ -83,7 +83,7 @@
 	( \
 		detail::tvec3<T> const & x,  \
 		typename detail::tvec3<T>::value_type const & y \
-	) \
+	) GLM_FUNC_POST \
 	{ \
 		return detail::tvec3<T>( \
 			func(x.x, y), \
@@ -97,7 +97,7 @@
 	( \
 		detail::tvec4<T> const & x,  \
 		typename detail::tvec4<T>::value_type const & y \
-	) \
+	) GLM_FUNC_POST \
 	{ \
 		return detail::tvec4<T>( \
 			func(x.x, y), \
@@ -117,7 +117,7 @@
 	( \
 		detail::tvec2<T> const & x,  \
 		detail::tvec2<T> const & y \
-	) \
+	) GLM_FUNC_POST \
 	{ \
 		return detail::tvec2<T>( \
 			func(x.x, y.x), \
@@ -130,7 +130,7 @@
 	( \
 		detail::tvec3<T> const & x,  \
 		detail::tvec3<T> const & y \
-	) \
+	) GLM_FUNC_POST \
 	{ \
 		return detail::tvec3<T>( \
 			func(x.x, y.x), \
@@ -144,7 +144,7 @@
 	( \
 		detail::tvec4<T> const & x,  \
 		detail::tvec4<T> const & y \
-	) \
+	) GLM_FUNC_POST \
 	{ \
 		return detail::tvec4<T>( \
 			func(x.x, y.x), \

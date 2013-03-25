@@ -30,7 +30,7 @@ namespace glm{
 namespace detail
 {
 	template <typename T>
-	GLM_FUNC_QUALIFIER GLM_CONSTEXPR typename tvec3<T>::size_type tvec3<T>::length() const
+	GLM_FUNC_QUALIFIER GLM_CONSTEXPR typename tvec3<T>::size_type tvec3<T>::length() const GLM_FUNC_POST
 	{
 		return 3;
 	}
@@ -43,7 +43,7 @@ namespace detail
 	tvec3<T>::operator[]
 	(
 		size_type i
-	)
+	) GLM_FUNC_POST
 	{
 		assert(i < this->length());
 		return (&x)[i];
@@ -54,7 +54,7 @@ namespace detail
 	tvec3<T>::operator[]
 	(
 		size_type i
-	) const
+	) const GLM_FUNC_POST
 	{
 		assert(i < this->length());
 		return (&x)[i];
@@ -64,7 +64,7 @@ namespace detail
 	// Implicit basic constructors
 
 	template <typename T>
-	GLM_FUNC_QUALIFIER tvec3<T>::tvec3() :
+	GLM_FUNC_QUALIFIER tvec3<T>::tvec3() GLM_FUNC_POST :
 		x(value_type(0)),
 		y(value_type(0)),
 		z(value_type(0))
@@ -74,14 +74,14 @@ namespace detail
 	GLM_FUNC_QUALIFIER tvec3<T>::tvec3
 	(
 		ctor
-	)
+	) GLM_FUNC_POST
 	{}
 
 	template <typename T>
 	GLM_FUNC_QUALIFIER tvec3<T>::tvec3
 	(
 		tvec3<T> const & v
-	) :
+	) GLM_FUNC_POST :
 		x(v.x),
 		y(v.y),
 		z(v.z)
@@ -94,7 +94,7 @@ namespace detail
 	GLM_FUNC_QUALIFIER tvec3<T>::tvec3
 	(
 		value_type const & s
-	) :
+	) GLM_FUNC_POST :
 		x(s),
 		y(s),
 		z(s)
@@ -106,7 +106,7 @@ namespace detail
 		value_type const & s0, 
 		value_type const & s1, 
 		value_type const & s2
-	) :
+	) GLM_FUNC_POST :
 		x(s0),
 		y(s1),
 		z(s2)
@@ -119,7 +119,7 @@ namespace detail
 	GLM_FUNC_QUALIFIER tvec3<T>::tvec3
 	(
 		tref3<T> const & r
-	) :
+	) GLM_FUNC_POST :
 		x(r.x),
 		y(r.y),
 		z(r.z)
@@ -131,7 +131,7 @@ namespace detail
 	(
 		tref2<A> const & v, 
 		B const & s
-	) : 
+	) GLM_FUNC_POST : 
 		x(value_type(v.x)),
 		y(value_type(v.y)),
 		z(value_type(s))
@@ -143,7 +143,7 @@ namespace detail
 	(
 		A const & s, 
 		tref2<B> const & v
-	) :
+	) GLM_FUNC_POST :
 		x(value_type(s)),
 		y(value_type(v.x)),
 		z(value_type(v.y))
@@ -157,7 +157,7 @@ namespace detail
 	GLM_FUNC_QUALIFIER tvec3<T>::tvec3
 	(
 		U const & s
-	) :
+	) GLM_FUNC_POST :
 		x(value_type(s)),
 		y(value_type(s)),
 		z(value_type(s))
@@ -170,7 +170,7 @@ namespace detail
 		A const & x, 
 		B const & y, 
 		C const & z
-	) :
+	) GLM_FUNC_POST :
 		x(value_type(x)),
 		y(value_type(y)),
 		z(value_type(z))
@@ -185,7 +185,7 @@ namespace detail
 	(
 		tvec2<A> const & v, 
 		B const & s
-	) :
+	) GLM_FUNC_POST :
 		x(value_type(v.x)),
 		y(value_type(v.y)),
 		z(value_type(s))
@@ -197,7 +197,7 @@ namespace detail
 	(	
 		A const & s, 
 		tvec2<B> const & v
-	) :
+	) GLM_FUNC_POST :
 		x(value_type(s)),
 		y(value_type(v.x)),
 		z(value_type(v.y))
@@ -208,7 +208,7 @@ namespace detail
 	GLM_FUNC_QUALIFIER tvec3<T>::tvec3
 	(
 		tvec3<U> const & v
-	) :
+	) GLM_FUNC_POST :
 		x(value_type(v.x)),
 		y(value_type(v.y)),
 		z(value_type(v.z))
@@ -219,7 +219,7 @@ namespace detail
 	GLM_FUNC_QUALIFIER tvec3<T>::tvec3
 	(
 		tvec4<U> const & v
-	) :
+	) GLM_FUNC_POST :
 		x(value_type(v.x)),
 		y(value_type(v.y)),
 		z(value_type(v.z))
@@ -232,7 +232,7 @@ namespace detail
 	GLM_FUNC_QUALIFIER tvec3<T>& tvec3<T>::operator= 
 	(
 		tvec3<T> const & v
-	)
+	) GLM_FUNC_POST
 	{
 		this->x = v.x;
 		this->y = v.y;
@@ -245,7 +245,7 @@ namespace detail
 	GLM_FUNC_QUALIFIER tvec3<T>& tvec3<T>::operator= 
 	(
 		tvec3<U> const & v
-	)
+	) GLM_FUNC_POST
 	{
 		this->x = T(v.x);
 		this->y = T(v.y);
@@ -258,7 +258,7 @@ namespace detail
 	GLM_FUNC_QUALIFIER tvec3<T> & tvec3<T>::operator+=
 	(
 		U const & s
-	)
+	) GLM_FUNC_POST
 	{
 		this->x += T(s);
 		this->y += T(s);
@@ -271,7 +271,7 @@ namespace detail
 	GLM_FUNC_QUALIFIER tvec3<T> & tvec3<T>::operator+=
 	(
 		tvec3<U> const & v
-	)
+	) GLM_FUNC_POST
 	{
 		this->x += T(v.x);
 		this->y += T(v.y);
@@ -284,7 +284,7 @@ namespace detail
 	GLM_FUNC_QUALIFIER tvec3<T> & tvec3<T>::operator-=
 	(
 		U const & s
-	)
+	) GLM_FUNC_POST
 	{
 		this->x -= T(s);
 		this->y -= T(s);
@@ -297,7 +297,7 @@ namespace detail
 	GLM_FUNC_QUALIFIER tvec3<T> & tvec3<T>::operator-=
 	(
 		tvec3<U> const & v
-	)
+	) GLM_FUNC_POST
 	{
 		this->x -= T(v.x);
 		this->y -= T(v.y);
@@ -310,7 +310,7 @@ namespace detail
 	GLM_FUNC_QUALIFIER tvec3<T> & tvec3<T>::operator*=
 	(
 		U const & s
-	)
+	) GLM_FUNC_POST
 	{
 		this->x *= T(s);
 		this->y *= T(s);
@@ -323,7 +323,7 @@ namespace detail
 	GLM_FUNC_QUALIFIER tvec3<T> & tvec3<T>::operator*=
 	(
 		tvec3<U> const & v
-	)
+	) GLM_FUNC_POST
 	{
 		this->x *= T(v.x);
 		this->y *= T(v.y);
@@ -336,7 +336,7 @@ namespace detail
 	GLM_FUNC_QUALIFIER tvec3<T> & tvec3<T>::operator/=
 	(
 		U const & s
-	)
+	) GLM_FUNC_POST
 	{
 		this->x /= T(s);
 		this->y /= T(s);
@@ -349,7 +349,7 @@ namespace detail
 	GLM_FUNC_QUALIFIER tvec3<T> & tvec3<T>::operator/=
 	(
 		tvec3<U> const & v
-	)
+	) GLM_FUNC_POST
 	{
 		this->x /= T(v.x);
 		this->y /= T(v.y);
@@ -358,7 +358,7 @@ namespace detail
 	}
 
 	template <typename T>
-	GLM_FUNC_QUALIFIER tvec3<T> & tvec3<T>::operator++()
+	GLM_FUNC_QUALIFIER tvec3<T> & tvec3<T>::operator++() GLM_FUNC_POST
 	{
 		++this->x;
 		++this->y;
@@ -367,7 +367,7 @@ namespace detail
 	}
 
 	template <typename T>
-	GLM_FUNC_QUALIFIER tvec3<T> & tvec3<T>::operator--()
+	GLM_FUNC_QUALIFIER tvec3<T> & tvec3<T>::operator--() GLM_FUNC_POST
 	{
 		--this->x;
 		--this->y;
@@ -383,7 +383,7 @@ namespace detail
 	(
 		tvec3<T> const & v1, 
 		tvec3<T> const & v2
-	)
+	) GLM_FUNC_POST
 	{
 		return (v1.x == v2.x) && (v1.y == v2.y) && (v1.z == v2.z);
 	}
@@ -393,7 +393,7 @@ namespace detail
 	(
 		tvec3<T> const & v1, 
 		tvec3<T> const & v2
-	)
+	) GLM_FUNC_POST
 	{
 		return (v1.x != v2.x) || (v1.y != v2.y) || (v1.z != v2.z);
 	}
@@ -406,7 +406,7 @@ namespace detail
 	GLM_FUNC_QUALIFIER tvec3<T> & tvec3<T>::operator%=
 	(
 		U const & s
-	)
+	) GLM_FUNC_POST
 	{
 		this->x %= s;
 		this->y %= s;
@@ -419,7 +419,7 @@ namespace detail
 	GLM_FUNC_QUALIFIER tvec3<T> & tvec3<T>::operator%=
 	(
 		tvec3<U> const & v
-	)
+	) GLM_FUNC_POST
 	{
 		this->x %= v.x;
 		this->y %= v.y;
@@ -432,7 +432,7 @@ namespace detail
 	GLM_FUNC_QUALIFIER tvec3<T> & tvec3<T>::operator&=
 	(	
 		U const & s
-	)
+	) GLM_FUNC_POST
 	{
 		this->x &= s;
 		this->y &= s;
@@ -445,7 +445,7 @@ namespace detail
 	GLM_FUNC_QUALIFIER tvec3<T> & tvec3<T>::operator&=
 	(
 		tvec3<U> const & v
-	)
+	) GLM_FUNC_POST
 	{
 		this->x &= v.x;
 		this->y &= v.y;
@@ -458,7 +458,7 @@ namespace detail
 	GLM_FUNC_QUALIFIER tvec3<T> & tvec3<T>::operator|=
 	(
 		U const & s
-	)
+	) GLM_FUNC_POST
 	{
 		this->x |= s;
 		this->y |= s;
@@ -471,7 +471,7 @@ namespace detail
 	GLM_FUNC_QUALIFIER tvec3<T> & tvec3<T>::operator|=
 	(
 		tvec3<U> const & v
-	)
+	) GLM_FUNC_POST
 	{
 		this->x |= v.x;
 		this->y |= v.y;
@@ -484,7 +484,7 @@ namespace detail
 	GLM_FUNC_QUALIFIER tvec3<T> & tvec3<T>::operator^=
 	(
 		U const & s
-	)
+	) GLM_FUNC_POST
 	{
 		this->x ^= s;
 		this->y ^= s;
@@ -497,7 +497,7 @@ namespace detail
 	GLM_FUNC_QUALIFIER tvec3<T> & tvec3<T>::operator^=
 	(
 		tvec3<U> const & v
-	)
+	) GLM_FUNC_POST
 	{
 		this->x ^= v.x;
 		this->y ^= v.y;
@@ -510,7 +510,7 @@ namespace detail
 	GLM_FUNC_QUALIFIER tvec3<T> & tvec3<T>::operator<<=
 	(
 		U const & s
-	)
+	) GLM_FUNC_POST
 	{
 		this->x <<= s;
 		this->y <<= s;
@@ -523,7 +523,7 @@ namespace detail
 	GLM_FUNC_QUALIFIER tvec3<T> & tvec3<T>::operator<<=
 	(
 		tvec3<U> const & v
-	)
+	) GLM_FUNC_POST
 	{
 		this->x <<= T(v.x);
 		this->y <<= T(v.y);
@@ -536,7 +536,7 @@ namespace detail
 	GLM_FUNC_QUALIFIER tvec3<T> & tvec3<T>::operator>>=
 	(
 		U const & s
-	)
+	) GLM_FUNC_POST
 	{
 		this->x >>= T(s);
 		this->y >>= T(s);
@@ -549,7 +549,7 @@ namespace detail
 	GLM_FUNC_QUALIFIER tvec3<T> & tvec3<T>::operator>>=
 	(
 		tvec3<U> const & v
-	)
+	) GLM_FUNC_POST
 	{
 		this->x >>= T(v.x);
 		this->y >>= T(v.y);
@@ -565,7 +565,7 @@ namespace detail
 	tvec3<T>::swizzle
 	(
 		comp x
-	) const
+	) const GLM_FUNC_POST
 	{
 		return (*this)[x];
 	}
@@ -575,7 +575,7 @@ namespace detail
 	(
 		comp x, 
 		comp y
-	) const
+	) const GLM_FUNC_POST
 	{
 		return tvec2<T>(
 			(*this)[x],
@@ -588,7 +588,7 @@ namespace detail
 		comp x, 
 		comp y, 
 		comp z
-	) const
+	) const GLM_FUNC_POST
 	{
 		return tvec3<T>(
 			(*this)[x],
@@ -603,7 +603,7 @@ namespace detail
 		comp y, 
 		comp z, 
 		comp w
-	) const
+	) const GLM_FUNC_POST
 	{
 		return tvec4<T>(
 			(*this)[x],
@@ -617,7 +617,7 @@ namespace detail
 	(
 		comp x, 
 		comp y
-	)
+	) GLM_FUNC_POST
 	{
 		return tref2<T>(
 			(*this)[x],
@@ -630,7 +630,7 @@ namespace detail
 		comp x, 
 		comp y, 
 		comp z
-	)
+	) GLM_FUNC_POST
 	{
 		return tref3<T>(
 			(*this)[x],
@@ -646,7 +646,7 @@ namespace detail
 	(
 		tvec3<T> const & v, 
 		T const & s
-	)
+	) GLM_FUNC_POST
 	{
 		return tvec3<T>(
 			v.x + T(s),
@@ -659,7 +659,7 @@ namespace detail
 	(
 		T const & s, 
 		tvec3<T> const & v
-	)
+	) GLM_FUNC_POST
 	{
 		return tvec3<T>(
 			T(s) + v.x,
@@ -672,7 +672,7 @@ namespace detail
 	(
 		tvec3<T> const & v1, 
 		tvec3<T> const & v2
-	)
+	) GLM_FUNC_POST
 	{
 		return tvec3<T>(
 			v1.x + T(v2.x),
@@ -686,7 +686,7 @@ namespace detail
 	(
 		tvec3<T> const & v, 
 		T const & s
-	)
+	) GLM_FUNC_POST
 	{
 		return tvec3<T>(
 			v.x - T(s),
@@ -699,7 +699,7 @@ namespace detail
 	(
 		T const & s, 
 		tvec3<T> const & v
-	)
+	) GLM_FUNC_POST
 	{
 		return tvec3<T>(
 			T(s) - v.x,
@@ -712,7 +712,7 @@ namespace detail
 	(
 		tvec3<T> const & v1, 
 		tvec3<T> const & v2
-	)
+	) GLM_FUNC_POST
 	{
 		return tvec3<T>(
 			v1.x - T(v2.x),
@@ -726,7 +726,7 @@ namespace detail
 	(
 		tvec3<T> const & v, 
 		T const & s
-	)
+	) GLM_FUNC_POST
 	{
 		return tvec3<T>(
 			v.x * T(s),
@@ -739,7 +739,7 @@ namespace detail
 	(
 		T const & s, 
 		tvec3<T> const & v
-	)
+	) GLM_FUNC_POST
 	{
 		return tvec3<T>(
 			T(s) * v.x,
@@ -752,7 +752,7 @@ namespace detail
 	(
 		tvec3<T> const & v1, 
 		tvec3<T> const & v2
-	)
+	) GLM_FUNC_POST
 	{
 		return tvec3<T>(
 			v1.x * T(v2.x),
@@ -766,7 +766,7 @@ namespace detail
 	(
 		tvec3<T> const & v, 
 		T const & s
-	)
+	) GLM_FUNC_POST
 	{
 		return tvec3<T>(
 			v.x / T(s),
@@ -779,7 +779,7 @@ namespace detail
 	(
 		T const & s, 
 		tvec3<T> const & v
-	)
+	) GLM_FUNC_POST
 	{
 		return tvec3<T>(
 			T(s) / v.x,
@@ -792,7 +792,7 @@ namespace detail
 	(
 		tvec3<T> const & v1, 
 		tvec3<T> const & v2
-	)
+	) GLM_FUNC_POST
 	{
 		return tvec3<T>(
 			v1.x / T(v2.x),
@@ -805,7 +805,7 @@ namespace detail
 	GLM_FUNC_QUALIFIER tvec3<T> operator- 
 	(
 		tvec3<T> const & v
-	)
+	) GLM_FUNC_POST
 	{
 		return tvec3<T>(
 			-v.x, 
@@ -818,7 +818,7 @@ namespace detail
 	(
 		tvec3<T> const & v, 
 		int
-	)
+	) GLM_FUNC_POST
 	{
 		return tvec3<T>(
 			v.x + T(1), 
@@ -831,7 +831,7 @@ namespace detail
 	(
 		tvec3<T> const & v, 
 		int
-	)
+	) GLM_FUNC_POST
 	{
 		return tvec3<T>(
 			v.x - T(1), 
@@ -847,7 +847,7 @@ namespace detail
 	(
 		tvec3<T> const & v, 
 		T const & s
-	)
+	) GLM_FUNC_POST
 	{
 		return tvec3<T>(
 			v.x % T(s),
@@ -860,7 +860,7 @@ namespace detail
 	(
 		T const & s, 
 		tvec3<T> const & v
-	)
+	) GLM_FUNC_POST
 	{
 		return tvec3<T>(
 			T(s) % v.x,
@@ -873,7 +873,7 @@ namespace detail
 	(
 		tvec3<T> const & v1, 
 		tvec3<T> const & v2
-	)
+	) GLM_FUNC_POST
 	{
 		return tvec3<T>(
 			v1.x % T(v2.x),
@@ -886,7 +886,7 @@ namespace detail
 	(
 		tvec3<T> const & v, 
 		T const & s
-	)
+	) GLM_FUNC_POST
 	{
 		return tvec3<T>(
 			v.x & T(s),
@@ -899,7 +899,7 @@ namespace detail
 	(
 		T const & s, 
 		tvec3<T> const & v
-	)
+	) GLM_FUNC_POST
 	{
 		return tvec3<T>(
 			T(s) & v.x,
@@ -912,7 +912,7 @@ namespace detail
 	(
 		tvec3<T> const & v1, 
 		tvec3<T> const & v2
-	)
+	) GLM_FUNC_POST
 	{
 		return tvec3<T>(
 			v1.x & T(v2.x),
@@ -925,7 +925,7 @@ namespace detail
 	(
 		tvec3<T> const & v, 
 		T const & s
-	)
+	) GLM_FUNC_POST
 	{
 		return tvec3<T>(
 			v.x | T(s),
@@ -938,7 +938,7 @@ namespace detail
 	(
 		T const & s, 
 		tvec3<T> const & v
-	)
+	) GLM_FUNC_POST
 	{
 		return tvec3<T>(
 			T(s) | v.x,
@@ -951,7 +951,7 @@ namespace detail
 	(
 		tvec3<T> const & v1, 
 		tvec3<T> const & v2
-	)
+	) GLM_FUNC_POST
 	{
 		return tvec3<T>(
 			v1.x | T(v2.x),
@@ -964,7 +964,7 @@ namespace detail
 	(
 		tvec3<T> const & v, 
 		T const & s
-	)
+	) GLM_FUNC_POST
 	{
 		return tvec3<T>(
 			v.x ^ T(s),
@@ -977,7 +977,7 @@ namespace detail
 	(
 		T const & s, 
 		tvec3<T> const & v
-	)
+	) GLM_FUNC_POST
 	{
 		return tvec3<T>(
 			T(s) ^ v.x,
@@ -990,7 +990,7 @@ namespace detail
 	(
 		tvec3<T> const & v1, 
 		tvec3<T> const & v2
-	)
+	) GLM_FUNC_POST
 	{
 		return tvec3<T>(
 			v1.x ^ T(v2.x),
@@ -1003,7 +1003,7 @@ namespace detail
 	(
 		tvec3<T> const & v, 
 		T const & s
-	)
+	) GLM_FUNC_POST
 	{
 		return tvec3<T>(
 			v.x << T(s),
@@ -1016,7 +1016,7 @@ namespace detail
 	(
 		T const & s, 
 		tvec3<T> const & v
-	)
+	) GLM_FUNC_POST
 	{
 		return tvec3<T>(
 			T(s) << v.x,
@@ -1029,7 +1029,7 @@ namespace detail
 	(
 		tvec3<T> const & v1, 
 		tvec3<T> const & v2
-	)
+	) GLM_FUNC_POST
 	{
 		return tvec3<T>(
 			v1.x << T(v2.x),
@@ -1042,7 +1042,7 @@ namespace detail
 	(
 		tvec3<T> const & v, 
 		T const & s
-	)
+	) GLM_FUNC_POST
 	{
 		return tvec3<T>(
 			v.x >> T(s),
@@ -1055,7 +1055,7 @@ namespace detail
 	(
 		T const & s, 
 		tvec3<T> const & v
-	)
+	) GLM_FUNC_POST
 	{
 		return tvec3<T>(
 			s >> T(v.x),
@@ -1068,7 +1068,7 @@ namespace detail
 	(
 		tvec3<T> const & v1, 
 		tvec3<T> const & v2
-	)
+	) GLM_FUNC_POST
 	{
 		return tvec3<T>(
 			v1.x >> T(v2.x),
@@ -1080,7 +1080,7 @@ namespace detail
 	GLM_FUNC_QUALIFIER tvec3<T> operator~ 
 	(
 		tvec3<T> const & v
-	)
+	) GLM_FUNC_POST
 	{
 		return tvec3<T>(
 			~v.x,
@@ -1092,7 +1092,7 @@ namespace detail
 	// tref definition
 
 	template <typename T> 
-	GLM_FUNC_QUALIFIER tref3<T>::tref3(T & x, T & y, T & z) :
+	GLM_FUNC_QUALIFIER tref3<T>::tref3(T & x, T & y, T & z) GLM_FUNC_POST :
 		x(x),
 		y(y),
 		z(z)
@@ -1102,7 +1102,7 @@ namespace detail
 	GLM_FUNC_QUALIFIER tref3<T>::tref3
 	(
 		tref3<T> const & r
-	) :
+	) GLM_FUNC_POST :
 		x(r.x),
 		y(r.y),
 		z(r.z)
@@ -1112,7 +1112,7 @@ namespace detail
 	GLM_FUNC_QUALIFIER tref3<T>::tref3
 	(
 		tvec3<T> const & v
-	) :
+	) GLM_FUNC_POST :
 		x(v.x),
 		y(v.y),
 		z(v.z)
@@ -1122,7 +1122,7 @@ namespace detail
 	GLM_FUNC_QUALIFIER tref3<T> & tref3<T>::operator=
 	(
 		tref3<T> const & r
-	)
+	) GLM_FUNC_POST
 	{
 		x = r.x;
 		y = r.y;
@@ -1134,7 +1134,7 @@ namespace detail
 	GLM_FUNC_QUALIFIER tref3<T> & tref3<T>::operator=
 	(
 		tvec3<T> const & v
-	)
+	) GLM_FUNC_POST
 	{
 		x = v.x;
 		y = v.y;
@@ -1143,7 +1143,7 @@ namespace detail
 	}
 
 	template <typename T> 
-	GLM_FUNC_QUALIFIER tvec3<T> tref3<T>::operator() ()
+	GLM_FUNC_QUALIFIER tvec3<T> tref3<T>::operator() () GLM_FUNC_POST
 	{
 		return tvec3<T>(this->x, this->y, this->z);
 	}

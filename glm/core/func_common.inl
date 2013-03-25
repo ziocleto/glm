@@ -36,7 +36,7 @@ namespace detail
 	template <typename genFIType>
 	struct Abs_<genFIType, true>
 	{
-		static genFIType get(genFIType const & x)
+		static genFIType get(genFIType const & x) GLM_FUNC_POST
 		{
 			GLM_STATIC_ASSERT(
 				detail::type<genFIType>::is_float || 
@@ -49,7 +49,7 @@ namespace detail
 	template <typename genFIType>
 	struct Abs_<genFIType, false>
 	{
-		static genFIType get(genFIType const & x)
+		static genFIType get(genFIType const & x) GLM_FUNC_POST
 		{
 			GLM_STATIC_ASSERT(
 					detail::type<genFIType>::is_uint, "'abs' only accept floating-point and integer inputs");
@@ -63,7 +63,7 @@ namespace detail
 	GLM_FUNC_QUALIFIER genFIType abs
 	(
 		genFIType const & x
-	)
+	) GLM_FUNC_POST
 	{
 		return detail::Abs_<genFIType, std::numeric_limits<genFIType>::is_signed>::get(x);
 	}
@@ -76,7 +76,7 @@ namespace detail
 	GLM_FUNC_QUALIFIER genFIType sign
 	(
 		genFIType const & x
-	)
+	) GLM_FUNC_POST
 	{
 		GLM_STATIC_ASSERT(
 			detail::type<genFIType>::is_float || 
@@ -96,13 +96,13 @@ namespace detail
 
 	// floor
 	template <>
-	GLM_FUNC_QUALIFIER detail::half floor<detail::half>(detail::half const & x)
+	GLM_FUNC_QUALIFIER detail::half floor<detail::half>(detail::half const & x) GLM_FUNC_POST
 	{
 		return detail::half(::std::floor(float(x)));
 	}
 
 	template <typename genType>
-	GLM_FUNC_QUALIFIER genType floor(genType const & x)
+	GLM_FUNC_QUALIFIER genType floor(genType const & x) GLM_FUNC_POST
 	{
 		GLM_STATIC_ASSERT(detail::type<genType>::is_float, "'floor' only accept floating-point inputs");
 
@@ -113,7 +113,7 @@ namespace detail
 
 	// trunc
 	template <typename genType>
-	GLM_FUNC_QUALIFIER genType trunc(genType const & x)
+	GLM_FUNC_QUALIFIER genType trunc(genType const & x) GLM_FUNC_POST
 	{
 		GLM_STATIC_ASSERT(detail::type<genType>::is_float, "'trunc' only accept floating-point inputs");
 		return x < 0 ? -floor(-x) : floor(x);
@@ -123,7 +123,7 @@ namespace detail
 
 	// round
 	template <typename genType>
-	GLM_FUNC_QUALIFIER genType round(genType const& x)
+	GLM_FUNC_QUALIFIER genType round(genType const& x) GLM_FUNC_POST
 	{
 		GLM_STATIC_ASSERT(detail::type<genType>::is_float, "'round' only accept floating-point inputs");
 
@@ -147,7 +147,7 @@ namespace detail
 	
 	// roundEven
 	template <typename genType>
-	GLM_FUNC_QUALIFIER genType roundEven(genType const & x)
+	GLM_FUNC_QUALIFIER genType roundEven(genType const & x) GLM_FUNC_POST
 	{
 		GLM_STATIC_ASSERT(detail::type<genType>::is_float, "'roundEven' only accept floating-point inputs");
 		
@@ -181,7 +181,7 @@ namespace detail
 
 	// ceil
 	template <typename genType>
-	GLM_FUNC_QUALIFIER genType ceil(genType const & x)
+	GLM_FUNC_QUALIFIER genType ceil(genType const & x) GLM_FUNC_POST
 	{
 		GLM_STATIC_ASSERT(detail::type<genType>::is_float, "'ceil' only accept floating-point inputs");
 
@@ -195,7 +195,7 @@ namespace detail
 	GLM_FUNC_QUALIFIER genType fract
 	(
 		genType const & x
-	)
+	) GLM_FUNC_POST
 	{
 		GLM_STATIC_ASSERT(detail::type<genType>::is_float, "'fract' only accept floating-point inputs");
 
@@ -210,7 +210,7 @@ namespace detail
 	(
 		genType const & x, 
 		genType const & y
-	)
+	) GLM_FUNC_POST
 	{
 		GLM_STATIC_ASSERT(detail::type<genType>::is_float, "'mod' only accept floating-point inputs");
 
@@ -226,7 +226,7 @@ namespace detail
 	(
 		genType const & x, 
 		genType & i
-	)
+	) GLM_FUNC_POST
 	{
 		GLM_STATIC_ASSERT(detail::type<genType>::is_float, "'modf' only accept floating-point inputs");
 
@@ -238,7 +238,7 @@ namespace detail
 	(
 		detail::tvec2<valType> const & x, 
 		detail::tvec2<valType> & i
-	)
+	) GLM_FUNC_POST
 	{
 		return detail::tvec2<valType>(
 			modf(x.x, i.x),
@@ -250,7 +250,7 @@ namespace detail
 	(
 		detail::tvec3<valType> const & x, 
 		detail::tvec3<valType> & i
-	)
+	) GLM_FUNC_POST
 	{
 		return detail::tvec3<valType>(
 			modf(x.x, i.x),
@@ -263,7 +263,7 @@ namespace detail
 	(
 		detail::tvec4<valType> const & x, 
 		detail::tvec4<valType> & i
-	)
+	) GLM_FUNC_POST
 	{
 		return detail::tvec4<valType>(
 			modf(x.x, i.x),
@@ -286,7 +286,7 @@ namespace detail
 	(
 		genType const & x, 
 		genType const & y
-	)
+	) GLM_FUNC_POST
 	{
 		GLM_STATIC_ASSERT(
 			detail::type<genType>::is_float || 
@@ -305,7 +305,7 @@ namespace detail
 	(
 		genType const & x, 
 		genType const & y
-	)
+	) GLM_FUNC_POST
 	{
 		GLM_STATIC_ASSERT(
 			detail::type<genType>::is_float || 
@@ -325,7 +325,7 @@ namespace detail
 		valType const & x, 
 		valType const & minVal, 
 		valType const & maxVal
-	)
+	) GLM_FUNC_POST
 	{
 		GLM_STATIC_ASSERT(
 			detail::type<valType>::is_float || 
@@ -341,7 +341,7 @@ namespace detail
 		detail::tvec2<T> const & x, 
 		typename detail::tvec2<T>::value_type const & minVal, 
 		typename detail::tvec2<T>::value_type const & maxVal
-	)
+	) GLM_FUNC_POST
 	{
 		return detail::tvec2<T>(
 			clamp(x.x, minVal, maxVal),
@@ -354,7 +354,7 @@ namespace detail
 		detail::tvec3<T> const & x, 
 		typename detail::tvec3<T>::value_type const & minVal, 
 		typename detail::tvec3<T>::value_type const & maxVal
-	)
+	) GLM_FUNC_POST
 	{
 		return detail::tvec3<T>(
 			clamp(x.x, minVal, maxVal),
@@ -368,7 +368,7 @@ namespace detail
 		detail::tvec4<T> const & x, 
 		typename detail::tvec4<T>::value_type const & minVal, 
 		typename detail::tvec4<T>::value_type const & maxVal
-	)
+	) GLM_FUNC_POST
 	{
 		return detail::tvec4<T>(
 			clamp(x.x, minVal, maxVal),
@@ -383,7 +383,7 @@ namespace detail
 		detail::tvec2<T> const & x, 
 		detail::tvec2<T> const & minVal, 
 		detail::tvec2<T> const & maxVal
-	)
+	) GLM_FUNC_POST
 	{
 		return detail::tvec2<T>(
 			clamp(x.x, minVal.x, maxVal.x),
@@ -396,7 +396,7 @@ namespace detail
 		detail::tvec3<T> const & x, 
 		detail::tvec3<T> const & minVal, 
 		detail::tvec3<T> const & maxVal
-	)
+	) GLM_FUNC_POST
 	{
 		return detail::tvec3<T>(
 			clamp(x.x, minVal.x, maxVal.x),
@@ -410,7 +410,7 @@ namespace detail
 		detail::tvec4<T> const & x, 
 		detail::tvec4<T> const & minVal, 
 		detail::tvec4<T> const & maxVal
-	)
+	) GLM_FUNC_POST
 	{
 		return detail::tvec4<T>(
 			clamp(x.x, minVal.x, maxVal.x),
@@ -426,7 +426,7 @@ namespace detail
 		genType const & x, 
 		genType const & y, 
 		genType const & a
-	)
+	) GLM_FUNC_POST
 	{
 		GLM_STATIC_ASSERT(detail::type<genType>::is_float , "'genType' is not floating-point type");
 
@@ -439,7 +439,7 @@ namespace detail
 		detail::tvec2<valType> const & x, 
 		detail::tvec2<valType> const & y, 
 		valType const & a
-	)
+	) GLM_FUNC_POST
 	{
 		GLM_STATIC_ASSERT(detail::type<valType>::is_float , "'genType' is not floating-point type");
 
@@ -452,7 +452,7 @@ namespace detail
 		detail::tvec3<valType> const & x, 
 		detail::tvec3<valType> const & y, 
 		valType const & a
-	)
+	) GLM_FUNC_POST
 	{
 		return x + a * (y - x);
 	}
@@ -463,7 +463,7 @@ namespace detail
 		detail::tvec4<valType> const & x, 
 		detail::tvec4<valType> const & y, 
 		valType const & a
-	)
+	) GLM_FUNC_POST
 	{
 		return x + a * (y - x);
 	}
@@ -474,7 +474,7 @@ namespace detail
 		detail::tvec2<valType> const & x, 
 		detail::tvec2<valType> const & y, 
 		detail::tvec2<valType> const & a
-	)
+	) GLM_FUNC_POST
 	{
 		return x + a * (y - x);
 	}
@@ -485,7 +485,7 @@ namespace detail
 		detail::tvec3<valType> const & x, 
 		detail::tvec3<valType> const & y, 
 		detail::tvec3<valType> const & a
-	)
+	) GLM_FUNC_POST
 	{
 		GLM_STATIC_ASSERT(detail::type<valType>::is_float , "'genType' is not floating-point type");
 
@@ -498,7 +498,7 @@ namespace detail
 		detail::tvec4<valType> const & x, 
 		detail::tvec4<valType> const & y, 
 		detail::tvec4<valType> const & a
-	)
+	) GLM_FUNC_POST
 	{
 		return x + a * (y - x);
 	}
@@ -525,7 +525,7 @@ namespace detail
 		float const & x, 
 		float const & y, 
 		bool const & a
-	)
+	) GLM_FUNC_POST
 	{
 		return a ? y : x;
 	}
@@ -536,7 +536,7 @@ namespace detail
 		double const & x, 
 		double const & y, 
 		bool const & a
-	)
+	) GLM_FUNC_POST
 	{
 		return a ? y : x;
 	}
@@ -547,7 +547,7 @@ namespace detail
 		detail::tvec2<T> const & x, 
 		detail::tvec2<T> const & y, 
 		bool a
-	)
+	) GLM_FUNC_POST
 	{
 		GLM_STATIC_ASSERT(detail::type<T>::is_float, "'mix' only accept floating-point inputs");
 
@@ -560,7 +560,7 @@ namespace detail
 		detail::tvec3<T> const & x, 
 		detail::tvec3<T> const & y, 
 		bool a
-	)
+	) GLM_FUNC_POST
 	{
 		GLM_STATIC_ASSERT(detail::type<T>::is_float, "'mix' only accept floating-point inputs");
 
@@ -573,7 +573,7 @@ namespace detail
 		detail::tvec4<T> const & x, 
 		detail::tvec4<T> const & y, 
 		bool a
-	)
+	) GLM_FUNC_POST
 	{
 		GLM_STATIC_ASSERT(detail::type<T>::is_float, "'mix' only accept floating-point inputs");
 
@@ -586,7 +586,7 @@ namespace detail
 		detail::tvec2<T> const & x, 
 		detail::tvec2<T> const & y, 
 		typename detail::tvec2<T>::bool_type a
-	)
+	) GLM_FUNC_POST
 	{
 		GLM_STATIC_ASSERT(detail::type<T>::is_float, "'mix' only accept floating-point inputs");
 
@@ -608,7 +608,7 @@ namespace detail
 		detail::tvec3<T> const & x, 
 		detail::tvec3<T> const & y, 
 		typename detail::tvec3<T>::bool_type a
-	)
+	) GLM_FUNC_POST
 	{
 		GLM_STATIC_ASSERT(detail::type<T>::is_float, "'mix' only accept floating-point inputs");
 
@@ -630,7 +630,7 @@ namespace detail
 		detail::tvec4<T> const & x, 
 		detail::tvec4<T> const & y, 
 		typename detail::tvec4<T>::bool_type a
-	)
+	) GLM_FUNC_POST
 	{
 		GLM_STATIC_ASSERT(detail::type<T>::is_float, "'mix' only accept floating-point inputs");
 
@@ -652,7 +652,7 @@ namespace detail
 	(
 		genType const & edge, 
 		genType const & x
-	)
+	) GLM_FUNC_POST
 	{
 		GLM_STATIC_ASSERT(detail::type<genType>::is_float, "'step' only accept floating-point inputs");
 
@@ -664,7 +664,7 @@ namespace detail
 	(
 		typename detail::tvec2<T>::value_type const & edge, 
 		detail::tvec2<T> const & x
-	)
+	) GLM_FUNC_POST
 	{
 		return detail::tvec2<T>(
 			x.x < edge ? T(0) : T(1),
@@ -676,7 +676,7 @@ namespace detail
 	(
 		typename detail::tvec3<T>::value_type const & edge, 
 		detail::tvec3<T> const & x
-	)
+	) GLM_FUNC_POST
 	{
 		return detail::tvec3<T>(
 			x.x < edge ? T(0) : T(1),
@@ -689,7 +689,7 @@ namespace detail
 	(
 		typename detail::tvec4<T>::value_type const & edge, 
 		detail::tvec4<T> const & x
-	)
+	) GLM_FUNC_POST
 	{
 		return detail::tvec4<T>(
 			x.x < edge ? T(0) : T(1),
@@ -703,7 +703,7 @@ namespace detail
 	(
 		detail::tvec2<T> const & edge, 
 		detail::tvec2<T> const & x
-	)
+	) GLM_FUNC_POST
 	{
 		return detail::tvec2<T>(
 			x.x < edge.x ? T(0) : T(1),
@@ -715,7 +715,7 @@ namespace detail
 	(
 		detail::tvec3<T> const & edge, 
 		detail::tvec3<T> const & x
-	)
+	) GLM_FUNC_POST
 	{
 		return detail::tvec3<T>(
 			x.x < edge.x ? T(0) : T(1),
@@ -728,7 +728,7 @@ namespace detail
 	(
 		detail::tvec4<T> const & edge, 
 		detail::tvec4<T> const & x
-	)
+	) GLM_FUNC_POST
 	{
 		return detail::tvec4<T>(
 			x.x < edge.x ? T(0) : T(1),
@@ -744,7 +744,7 @@ namespace detail
 		genType const & edge0, 
 		genType const & edge1, 
 		genType const & x
-	)
+	) GLM_FUNC_POST
 	{
 		GLM_STATIC_ASSERT(detail::type<genType>::is_float, "'smoothstep' only accept floating-point inputs");
 
@@ -758,7 +758,7 @@ namespace detail
 		typename detail::tvec2<T>::value_type const & edge0, 
 		typename detail::tvec2<T>::value_type const & edge1, 
 		detail::tvec2<T> const & x
-	)
+	) GLM_FUNC_POST
 	{
 		return detail::tvec2<T>(
 			smoothstep(edge0, edge1, x.x),
@@ -771,7 +771,7 @@ namespace detail
 		typename detail::tvec3<T>::value_type const & edge0, 
 		typename detail::tvec3<T>::value_type const & edge1, 
 		detail::tvec3<T> const & x
-	)
+	) GLM_FUNC_POST
 	{
 		return detail::tvec3<T>(
 			smoothstep(edge0, edge1, x.x),
@@ -785,7 +785,7 @@ namespace detail
 		typename detail::tvec4<T>::value_type const & edge0, 
 		typename detail::tvec4<T>::value_type const & edge1, 
 		detail::tvec4<T> const & x
-	)
+	) GLM_FUNC_POST
 	{
 		return detail::tvec4<T>(
 			smoothstep(edge0, edge1, x.x),
@@ -800,7 +800,7 @@ namespace detail
 		detail::tvec2<T> const & edge0, 
 		detail::tvec2<T> const & edge1, 
 		detail::tvec2<T> const & x
-	)
+	) GLM_FUNC_POST
 	{
 		return detail::tvec2<T>(
 			smoothstep(edge0.x, edge1.x, x.x),
@@ -813,7 +813,7 @@ namespace detail
 		detail::tvec3<T> const & edge0, 
 		detail::tvec3<T> const & edge1, 
 		detail::tvec3<T> const & x
-	)
+	) GLM_FUNC_POST
 	{
 		return detail::tvec3<T>(
 			smoothstep(edge0.x, edge1.x, x.x),
@@ -827,7 +827,7 @@ namespace detail
 		detail::tvec4<T> const & edge0, 
 		detail::tvec4<T> const & edge1, 
 		detail::tvec4<T> const & x
-	)
+	) GLM_FUNC_POST
 	{
 		return detail::tvec4<T>(
 			smoothstep(edge0.x, edge1.x, x.x),
@@ -838,7 +838,7 @@ namespace detail
 
 	// TODO: Not working on MinGW...
 	template <typename genType> 
-	GLM_FUNC_QUALIFIER bool isnan(genType const & x)
+	GLM_FUNC_QUALIFIER bool isnan(genType const & x) GLM_FUNC_POST
 	{
 		GLM_STATIC_ASSERT(detail::type<genType>::is_float, "'isnan' only accept floating-point inputs");
 
@@ -861,7 +861,7 @@ namespace detail
 	GLM_FUNC_QUALIFIER typename detail::tvec2<T>::bool_type isnan
 	(
 		detail::tvec2<T> const & x
-	)
+	) GLM_FUNC_POST
 	{
 		return typename detail::tvec2<T>::bool_type(
 			isnan(x.x),
@@ -872,7 +872,7 @@ namespace detail
 	GLM_FUNC_QUALIFIER typename detail::tvec3<T>::bool_type isnan
 	(
 		detail::tvec3<T> const & x
-	)
+	) GLM_FUNC_POST
 	{
 		return typename detail::tvec3<T>::bool_type(
 			isnan(x.x),
@@ -884,7 +884,7 @@ namespace detail
 	GLM_FUNC_QUALIFIER typename detail::tvec4<T>::bool_type isnan
 	(
 		detail::tvec4<T> const & x
-	)
+	) GLM_FUNC_POST
 	{
 		return typename detail::tvec4<T>::bool_type(
 			isnan(x.x),
@@ -894,8 +894,10 @@ namespace detail
 	}
 
 	template <typename genType> 
-	GLM_FUNC_QUALIFIER bool isinf(
-		genType const & x)
+	GLM_FUNC_QUALIFIER bool isinf
+	(
+		genType const & x
+	) GLM_FUNC_POST
 	{
 		GLM_STATIC_ASSERT(detail::type<genType>::is_float, "'isinf' only accept floating-point inputs");
 
@@ -919,7 +921,7 @@ namespace detail
 	GLM_FUNC_QUALIFIER typename detail::tvec2<T>::bool_type isinf
 	(
 		detail::tvec2<T> const & x
-	)
+	) GLM_FUNC_POST
 	{
 		return typename detail::tvec2<T>::bool_type(
 			isinf(x.x),
@@ -930,7 +932,7 @@ namespace detail
 	GLM_FUNC_QUALIFIER typename detail::tvec3<T>::bool_type isinf
 	(
 		detail::tvec3<T> const & x
-	)
+	) GLM_FUNC_POST
 	{
 		return typename detail::tvec3<T>::bool_type(
 			isinf(x.x),
@@ -942,7 +944,7 @@ namespace detail
 	GLM_FUNC_QUALIFIER typename detail::tvec4<T>::bool_type isinf
 	(
 		detail::tvec4<T> const & x
-	)
+	) GLM_FUNC_POST
 	{
 		return typename detail::tvec4<T>::bool_type(
 			isinf(x.x),
@@ -951,7 +953,7 @@ namespace detail
 			isinf(x.w));
 	}
 
-	GLM_FUNC_QUALIFIER int floatBitsToInt(float const & value)
+	GLM_FUNC_QUALIFIER int floatBitsToInt(float const & value) GLM_FUNC_POST
 	{
 		union
 		{
@@ -966,7 +968,7 @@ namespace detail
 	GLM_FUNC_QUALIFIER detail::tvec2<int> floatBitsToInt
 	(
 		detail::tvec2<float> const & value
-	)
+	) GLM_FUNC_POST
 	{
 		return detail::tvec2<int>(
 			floatBitsToInt(value.x),
@@ -976,7 +978,7 @@ namespace detail
 	GLM_FUNC_QUALIFIER detail::tvec3<int> floatBitsToInt
 	(
 		detail::tvec3<float> const & value
-	)
+	) GLM_FUNC_POST
 	{
 		return detail::tvec3<int>(
 			floatBitsToInt(value.x),
@@ -987,7 +989,7 @@ namespace detail
 	GLM_FUNC_QUALIFIER detail::tvec4<int> floatBitsToInt
 	(
 		detail::tvec4<float> const & value
-	)
+	) GLM_FUNC_POST
 	{
 		return detail::tvec4<int>(
 			floatBitsToInt(value.x),
@@ -996,7 +998,7 @@ namespace detail
 			floatBitsToInt(value.w));
 	}
 
-	GLM_FUNC_QUALIFIER uint floatBitsToUint(float const & value)
+	GLM_FUNC_QUALIFIER uint floatBitsToUint(float const & value) GLM_FUNC_POST
 	{
 		union
 		{
@@ -1011,7 +1013,7 @@ namespace detail
 	GLM_FUNC_QUALIFIER detail::tvec2<uint> floatBitsToUint
 	(
 		detail::tvec2<float> const & value
-	)
+	) GLM_FUNC_POST
 	{
 		return detail::tvec2<uint>(
 			floatBitsToUint(value.x),
@@ -1021,7 +1023,7 @@ namespace detail
 	GLM_FUNC_QUALIFIER detail::tvec3<uint> floatBitsToUint
 	(
 		detail::tvec3<float> const & value
-	)
+	) GLM_FUNC_POST
 	{
 		return detail::tvec3<uint>(
 			floatBitsToUint(value.x),
@@ -1032,7 +1034,7 @@ namespace detail
 	GLM_FUNC_QUALIFIER detail::tvec4<uint> floatBitsToUint
 	(
 		detail::tvec4<float> const & value
-	)
+	) GLM_FUNC_POST
 	{
 		return detail::tvec4<uint>(
 			floatBitsToUint(value.x),
@@ -1054,10 +1056,9 @@ namespace detail
 	}
 
 	GLM_FUNC_QUALIFIER detail::tvec2<float> intBitsToFloat
-
 	(
 		detail::tvec2<int> const & value
-	)
+	) GLM_FUNC_POST
 	{
 		return detail::tvec2<float>(
 			intBitsToFloat(value.x),
@@ -1067,7 +1068,7 @@ namespace detail
 	GLM_FUNC_QUALIFIER detail::tvec3<float> intBitsToFloat
 	(
 		detail::tvec3<int> const & value
-	)
+	) GLM_FUNC_POST
 	{
 		return detail::tvec3<float>(
 			intBitsToFloat(value.x),
@@ -1078,7 +1079,7 @@ namespace detail
 	GLM_FUNC_QUALIFIER detail::tvec4<float> intBitsToFloat
 	(
 		detail::tvec4<int> const & value
-	)
+	) GLM_FUNC_POST
 	{
 		return detail::tvec4<float>(
 			intBitsToFloat(value.x),
@@ -1087,7 +1088,7 @@ namespace detail
 			intBitsToFloat(value.w));
 	}
 
-	GLM_FUNC_QUALIFIER float uintBitsToFloat(uint const & value)
+	GLM_FUNC_QUALIFIER float uintBitsToFloat(uint const & value) GLM_FUNC_POST
 	{
 		union
 		{
@@ -1102,7 +1103,7 @@ namespace detail
 	GLM_FUNC_QUALIFIER detail::tvec2<float> uintBitsToFloat
 	(
 		detail::tvec2<uint> const & value
-	)
+	) GLM_FUNC_POST
 	{
 		return detail::tvec2<float>(
 			uintBitsToFloat(value.x),
@@ -1112,7 +1113,7 @@ namespace detail
 	GLM_FUNC_QUALIFIER detail::tvec3<float> uintBitsToFloat
 	(
 		detail::tvec3<uint> const & value
-	)
+	) GLM_FUNC_POST
 	{
 		return detail::tvec3<float>(
 			uintBitsToFloat(value.x),
@@ -1123,7 +1124,7 @@ namespace detail
 	GLM_FUNC_QUALIFIER detail::tvec4<float> uintBitsToFloat
 	(
 		detail::tvec4<uint> const & value
-	)
+	) GLM_FUNC_POST
 	{
 		return detail::tvec4<float>(
 			uintBitsToFloat(value.x),
@@ -1138,7 +1139,7 @@ namespace detail
 		genType const & a, 
 		genType const & b, 
 		genType const & c
-	)
+	) GLM_FUNC_POST
 	{
 		return a * b + c;
 	}
@@ -1148,7 +1149,7 @@ namespace detail
 	(
 		genType const & x, 
 		int & exp
-	)
+	) GLM_FUNC_POST
 	{
 		return std::frexp(x, exp);
 	}
@@ -1158,7 +1159,7 @@ namespace detail
 	(
 		detail::tvec2<T> const & x, 
 		detail::tvec2<int> & exp
-	)
+	) GLM_FUNC_POST
 	{
 		return std::frexp(x, exp);
 	}
@@ -1168,7 +1169,7 @@ namespace detail
 	(
 		detail::tvec3<T> const & x, 
 		detail::tvec3<int> & exp
-	)
+	) GLM_FUNC_POST
 	{
 		return std::frexp(x, exp);
 	}
@@ -1178,7 +1179,7 @@ namespace detail
 	(
 		detail::tvec4<T> const & x, 
 		detail::tvec4<int> & exp
-	)
+	) GLM_FUNC_POST
 	{
 		return std::frexp(x, exp);
 	}
@@ -1188,7 +1189,7 @@ namespace detail
 	(
 		genType const & x, 
 		int const & exp
-	)
+	) GLM_FUNC_POST
 	{
 		return std::frexp(x, exp);
 	}
@@ -1198,7 +1199,7 @@ namespace detail
 	(
 		detail::tvec2<T> const & x, 
 		detail::tvec2<int> const & exp
-	)
+	) GLM_FUNC_POST
 	{
 		return std::frexp(x, exp);
 	}
@@ -1208,7 +1209,7 @@ namespace detail
 	(
 		detail::tvec3<T> const & x, 
 		detail::tvec3<int> const & exp
-	)
+	) GLM_FUNC_POST
 	{
 		return std::frexp(x, exp);
 	}
@@ -1218,9 +1219,8 @@ namespace detail
 	(
 		detail::tvec4<T> const & x, 
 		detail::tvec4<int> const & exp
-	)
+	) GLM_FUNC_POST
 	{
 		return std::frexp(x, exp);
 	}
-
 }//namespace glm
