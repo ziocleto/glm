@@ -36,59 +36,202 @@
 /// <glm/gtc/angle.hpp> need to be included to use these features.
 ///////////////////////////////////////////////////////////////////////////////////
 
-#ifndef GLM_GTC_angle
-#define GLM_GTC_angle GLM_VERSION
+#ifndef GLM_GTX_angle
+#define GLM_GTX_angle GLM_VERSION
 
-namespace glm
+namespace glm{
+namespace detail
 {
-	template <typename T>
-	class angle
+	template <typename T, precision P>
+	class tangle
 	{
 	public:
 		typedef T value_type;
 
-		angle(value_type const & x) :
+		// Constructors
+		tangle();
+		template <typename U, precision Q>
+		GLM_FUNC_DECL explicit tangle(
+			tangle<U, Q> const & q);
+		tangle(value_type const & x) :
 			data(x)
 		{}
+
+		// Operators
+		GLM_FUNC_DECL tangle<T, P> & operator+=(tangle<T, P> const & a);
+		GLM_FUNC_DECL tangle<T, P> & operator-=(tangle<T, P> const & a);
+		GLM_FUNC_DECL tangle<T, P> & operator*=(value_type const & s);
+		GLM_FUNC_DECL tangle<T, P> & operator/=(value_type const & s);
 
 	private:
 		value_type data;
 	};
 
-	typedef angle<glm::half> angle16;
-	typedef angle<float> angle32;
-	typedef angle<double> angle64;
+	template <typename T, precision P>
+	detail::tangle<T, P> operator- (
+		detail::tangle<T, P> const & q);
 
-	GLM_FUNC_DECL angle<float> operator "" _rad_f(long double const radians)
+	template <typename T, precision P>
+	detail::tangle<T, P> operator+ (
+		detail::tangle<T, P> const & q,
+		detail::tangle<T, P> const & p);
+
+	template <typename T, precision P>
+	detail::tangle<T, P> operator- (
+		detail::tangle<T, P> const & q,
+		detail::tangle<T, P> const & p);
+
+	template <typename T, precision P>
+	detail::tangle<T, P> operator* (
+		detail::tangle<T, P> const & q,
+		T const & s);
+
+	template <typename T, precision P>
+	detail::tangle<T, P> operator/ (
+		detail::tangle<T, P> const & q,
+		T const & s);
+}//namespace detail
+
+	/// Low half-precision floating-point angle.
+	///
+	/// @see gtx_angle
+	typedef detail::tangle<half, lowp> lowp_hangle;
+
+	/// Medium half-precision floating-point angle.
+	///
+	/// @see gtx_angle
+	typedef detail::tangle<half, mediump> mediump_hangle;
+
+	/// High half-precision floating-point angle.
+	///
+	/// @see gtx_angle
+	typedef detail::tangle<half, highp> highp_hangle;
+
+#if(defined(GLM_PRECISION_HIGHP_HALF) && !defined(GLM_PRECISION_MEDIUMP_HALF) && !defined(GLM_PRECISION_LOWP_HALF))
+	typedef highp_hangle		hangle;
+#elif(!defined(GLM_PRECISION_HIGHP_HALF) && defined(GLM_PRECISION_MEDIUMP_HALF) && !defined(GLM_PRECISION_LOWP_HALF))
+	typedef mediump_hangle		hangle;
+#elif(!defined(GLM_PRECISION_HIGHP_HALF) && !defined(GLM_PRECISION_MEDIUMP_HALF) && defined(GLM_PRECISION_LOWP_HALF))
+	typedef lowp_hangle			hangle;
+#elif(!defined(GLM_PRECISION_HIGHP_HALF) && !defined(GLM_PRECISION_MEDIUMP_HALF) && !defined(GLM_PRECISION_LOWP_HALF))
+	/// Default half-precision floating-point angle.
+	typedef highp_hangle		hangle;
+#endif
+
+	/// Low single-precision floating-point angle.
+	///
+	/// @see gtx_angle
+	typedef detail::tangle<float, lowp> lowp_angle;
+
+	/// Medium single-precision floating-point angle.
+	///
+	/// @see gtx_angle
+	typedef detail::tangle<float, mediump> mediump_angle;
+
+	/// High single-precision floating-point angle.
+	///
+	/// @see gtx_angle
+	typedef detail::tangle<float, highp> highp_angle;
+
+	/// Low single-precision floating-point angle.
+	///
+	/// @see gtx_angle
+	typedef detail::tangle<float, lowp> lowp_fangle;
+
+	/// Medium single-precision floating-point angle.
+	///
+	/// @see gtx_angle
+	typedef detail::tangle<float, mediump> mediump_fangle;
+
+	/// High single-precision floating-point angle.
+	///
+	/// @see gtx_angle
+	typedef detail::tangle<float, highp> highp_fangle;
+
+#if(defined(GLM_PRECISION_HIGHP_FLOAT) && !defined(GLM_PRECISION_MEDIUMP_FLOAT) && !defined(GLM_PRECISION_LOWP_FLOAT))
+	typedef highp_fangle		angle;
+#elif(!defined(GLM_PRECISION_HIGHP_FLOAT) && defined(GLM_PRECISION_MEDIUMP_FLOAT) && !defined(GLM_PRECISION_LOWP_FLOAT))
+	typedef mediump_fangle		angle;
+#elif(!defined(GLM_PRECISION_HIGHP_FLOAT) && !defined(GLM_PRECISION_MEDIUMP_FLOAT) && defined(GLM_PRECISION_LOWP_FLOAT))
+	typedef lowp_fangle			angle;
+#elif(!defined(GLM_PRECISION_HIGHP_FLOAT) && !defined(GLM_PRECISION_MEDIUMP_FLOAT) && !defined(GLM_PRECISION_LOWP_FLOAT))
+	/// Default single-precision floating-point angle.
+	typedef highp_fangle		angle;
+#endif
+
+	/// Default single-precision floating-point angle.
+	///
+	/// @see gtx_angle
+	typedef angle				fangle;
+
+	/// Low double-precision floating-point angle.
+	///
+	/// @see gtx_angle
+	typedef detail::tangle<double, lowp> lowp_dangle;
+
+	/// Medium double-precision floating-point angle.
+	///
+	/// @see gtx_angle
+	typedef detail::tangle<double, mediump> mediump_dangle;
+
+	/// High double-precision floating-point angle.
+	///
+	/// @see gtx_angle
+	typedef detail::tangle<double, highp> highp_dangle;
+
+#if(defined(GLM_PRECISION_HIGHP_DOUBLE) && !defined(GLM_PRECISION_MEDIUMP_DOUBLE) && !defined(GLM_PRECISION_LOWP_DOUBLE))
+	typedef highp_dangle		dangle;
+#elif(!defined(GLM_PRECISION_HIGHP_DOUBLE) && defined(GLM_PRECISION_MEDIUMP_DOUBLE) && !defined(GLM_PRECISION_LOWP_DOUBLE))
+	typedef mediump_dangle		dangle;
+#elif(!defined(GLM_PRECISION_HIGHP_DOUBLE) && !defined(GLM_PRECISION_MEDIUMP_DOUBLE) && defined(GLM_PRECISION_LOWP_DOUBLE))
+	typedef lowp_dangle			dangle;
+#elif(!defined(GLM_PRECISION_HIGHP_DOUBLE) && !defined(GLM_PRECISION_MEDIUMP_DOUBLE) && !defined(GLM_PRECISION_LOWP_DOUBLE))
+	/// Default double-precision floating-point angle.
+	typedef highp_dangle		dangle;
+#endif
+
+	GLM_FUNC_DECL hangle operator "" _rad_h(long double const radians)
 	{
-		return static_cast<float>(radians);
+		return hangle(radians);
 	}
 
-	GLM_FUNC_DECL angle<double> operator "" _rad(long double const radians)
+	GLM_FUNC_DECL fangle operator "" _rad_f(long double const radians)
 	{
-		return static_cast<double>(radians);
+		return fangle(radians);
 	}
 
-	GLM_FUNC_DECL angle<long double> operator "" _rad_l(long double const radians)
+	GLM_FUNC_DECL dangle operator "" _rad(long double const radians)
 	{
-		return radians;
+		return dangle(radians);
 	}
 
-	GLM_FUNC_DECL angle<float> operator "" _deg_f(long double const degrees)
+	GLM_FUNC_DECL detail::tangle<long double> operator "" _rad_l(long double const radians)
 	{
-		return static_cast<float>(degrees) * static_cast<float>(0.01745329251994329576923690768489L);
+		return detail::tangle<long double>(radians);
 	}
 
-	GLM_FUNC_DECL angle<double> operator "" _deg(long double const degrees)
+	GLM_FUNC_DECL hangle operator "" _deg_h(long double const degrees)
 	{
-		return static_cast<double>(degrees) * static_cast<double>(0.01745329251994329576923690768489L);
+		return hangle(half(static_cast<float>(degrees) * static_cast<float>(0.01745329251994329576923690768489L)));
 	}
 
-	GLM_FUNC_DECL angle<long double> operator "" _deg_l(long double const degrees)
+	GLM_FUNC_DECL fangle operator "" _deg_f(long double const degrees)
 	{
-		return degrees * 0.01745329251994329576923690768489L;
+		return fangle(static_cast<float>(degrees) * static_cast<float>(0.01745329251994329576923690768489L));
+	}
+
+	GLM_FUNC_DECL dangle operator "" _deg(long double const degrees)
+	{
+		return dangle(static_cast<double>(degrees) * static_cast<double>(0.01745329251994329576923690768489L));
+	}
+
+	GLM_FUNC_DECL detail::tangle<long double> operator "" _deg_l(long double const degrees)
+	{
+		return detail::tangle<long double>(degrees * 0.01745329251994329576923690768489L);
 	}
 
 }//namespace glm
 
-#endif//GLM_GTC_angle
+#include "angle.inl"
+
+#endif//GLM_GTX_angle

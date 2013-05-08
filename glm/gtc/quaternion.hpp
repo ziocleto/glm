@@ -55,7 +55,7 @@ namespace detail
 	template <typename T, precision P>
 	struct tquat// : public genType<T, tquat>
 	{
-		enum ctor{null};
+		enum ctor{_null};
 
 		typedef T value_type;
 		typedef std::size_t size_type;

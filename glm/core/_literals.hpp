@@ -31,7 +31,7 @@
 
 namespace glm
 {
-#define GLM_CXX11_USER_LITERALS
+//#define GLM_CXX11_USER_LITERALS
 #ifdef GLM_CXX11_USER_LITERALS
 
 	GLM_FUNC_QUALIFIER detail::half operator "" _h(long double const s)
