@@ -34,8 +34,96 @@
 
 #include <vector>
 #include <cstdio>
+#include <functional>
 
 #define square(X) X*X;
+
+class base
+{
+public: 
+	typedef void (base::*method)() const;
+
+	method do_method;
+
+	void (base::*do_print)() const;
+
+	void call_print()
+	{
+		do_print = &base::print;
+		(this->*do_print)();
+	}
+
+	void call_method()
+	{
+		do_method = &base::print;
+		(this->*do_method)();
+	}
+
+	virtual void print() const {printf("B\n");}
+};
+
+class derived : public base
+{
+public: 
+	virtual void print(){printf("D\n");}
+};
+
+template <typename T>
+void func(T const & a)
+{
+	a.print();
+}
+
+int test_class()
+{
+	base Base;
+	Base.print();
+
+	derived Derived;
+	Derived.print();
+
+	base & Ref = Derived;
+	Ref.print();
+
+	base * Ptr = &Derived;
+	Ptr->print();
+
+	auto Auto = std::bind(&derived::print, Derived);
+	Auto();
+
+	Base.do_print = &base::print;
+	(Base.*Base.do_print)();
+	Base.call_print();
+	Base.call_method();
+	(Base.*Base.do_method)();
+
+	func(Base);
+
+	return 0;
+}
+
+void bind_print(int i)
+{
+	printf("bind_print: %d\n", i);
+}
+
+void bind_print2(int i, int j)
+{
+	printf("bind_print2: %d, %d\n", i, j);
+}
+
+using namespace std::placeholders; 
+
+int test_bind()
+{
+	auto A = std::bind(bind_print, _1);
+	A(76);
+
+	auto B = std::bind(bind_print2, _1, _2);
+	B(76, 82);
+
+	return 0;
+}
 
 int test()
 {
@@ -62,7 +150,24 @@ int main()
 
 	int Error(0);
 
+	{
+		int* a[10];
+		int (*b)[10];
+		int c;
+		int d[10];
+		int e[5][10];
+		int (*f)[5][10];
+
+		a[0] = &c;
+		b = &d;
+		b = &e[0];
+		f = &e;
+	}
+
 	test();
+	test_class();
+	test_bind();
+
 	{
 		int (*ptr)[10];
 		int* gni[10];
@@ -104,7 +209,6 @@ int main()
 			printf("%c", c|mask);
 			mask = mask<<1;
 		}
-		return 0;
 	}
 
 	//glm::vec3 v{0, 1, 2};
