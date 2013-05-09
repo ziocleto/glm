@@ -153,8 +153,59 @@ int test()
 	return 0;
 }
 
+class workerA
+{
+public:
+	void operator()() const
+	{
+		printf("workerA\n");
+	}
+};
+
+class workerB
+{
+public:
+	void run()
+	{
+		printf("workerB\n");
+	}
+};
+
+int foo(int val) 
+{ 
+	int n=0; 
+	while (val) 
+	{ 
+		val &= val-1; 
+		n++;
+	} 
+	return n; 
+}
+
 int main()
 {
+	{
+		int A = foo(0);
+		int B = foo(1);
+		int C = foo(2);
+		int D = foo(3);
+		int E = foo(4);
+		int F = foo(5);
+		int G = foo(6);
+		int H = foo(7);
+		int I = foo(8);
+		int J = foo(9);
+	}
+
+	workerA WorkerA;
+	workerB WorkerB;
+
+	std::thread ThreadA(WorkerA);
+	std::thread ThreadB(&workerB::run, &WorkerB);
+
+	ThreadA.join();
+	ThreadB.join();
+
 	//auto d = 90.0_deg;
 
 	//int t = 2 * 3 % 10;
