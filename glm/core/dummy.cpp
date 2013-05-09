@@ -62,16 +62,28 @@ public:
 	virtual void print() const {printf("B\n");}
 };
 
+template <typename T>
+class tmpl
+{
+public:
+	template <typename U>
+	void print(U const & u) const
+	{
+		printf("tmpl::print()\n");
+	}
+};
+
 class derived : public base
 {
 public: 
 	virtual void print(){printf("D\n");}
 };
 
-template <typename T>
-void func(T const & a)
+template<typename T>
+void test_tmpl()
 {
-	a.print();
+	tmpl<T> Tmpl;
+	Tmpl.template print(76.f);
 }
 
 int test_class()
@@ -96,8 +108,6 @@ int test_class()
 	Base.call_print();
 	Base.call_method();
 	(Base.*Base.do_method)();
-
-	func(Base);
 
 	return 0;
 }
@@ -167,6 +177,7 @@ int main()
 	test();
 	test_class();
 	test_bind();
+	test_tmpl<float>();
 
 	{
 		int (*ptr)[10];
