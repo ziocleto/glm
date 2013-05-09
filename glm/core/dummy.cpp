@@ -35,6 +35,7 @@
 #include <vector>
 #include <cstdio>
 #include <functional>
+#include <thread>
 
 #define square(X) X*X;
 
@@ -83,7 +84,7 @@ template<typename T>
 void test_tmpl()
 {
 	tmpl<T> Tmpl;
-	Tmpl.template print(76.f);
+	Tmpl.template print<float>(76.f);
 }
 
 int test_class()
