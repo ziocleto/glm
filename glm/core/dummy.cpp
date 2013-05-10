@@ -265,8 +265,6 @@ int main()
 	ThreadA.join();
 	ThreadB.join();
 
-	//auto d = 90.0_deg;
-
 	//int t = 2 * 3 % 10;
 
 	int Error(0);
