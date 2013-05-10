@@ -33,9 +33,11 @@
 #include "../glm.hpp"
 
 #include <vector>
+#include <array>
 #include <cstdio>
 #include <functional>
 #include <thread>
+#include <mutex>
 
 #define square(X) X*X;
 
@@ -160,6 +162,9 @@ public:
 	{
 		printf("workerA\n");
 	}
+
+private:
+	std::vector<int> Lists;
 };
 
 class workerB
@@ -182,8 +187,66 @@ int foo(int val)
 	return n; 
 }
 
+class workerMutex
+{
+public:
+	workerMutex
+	(
+		int const Id,
+		std::vector<std::pair<int, std::size_t>> & Lists,
+		std::mutex & Mutex
+	) :
+		Id(Id),
+		Lists(Lists),
+		Mutex(Mutex)
+	{}
+
+	bool insert()
+	{
+		Mutex.lock();
+		std::size_t Size = Lists.size();
+		Lists.push_back(std::pair<int, std::size_t>(this->Id, Size));
+		Mutex.unlock();
+
+		return Size < 1000;
+	}
+
+	void operator()()
+	{
+		printf("workerMutex\n");
+		while(this->insert());
+	}
+
+private:
+	int const Id;
+	std::vector<std::pair<int, std::size_t>> & Lists;
+	std::mutex & Mutex;
+};
+
+int test_mutex()
+{
+	std::mutex Mutex;
+	std::vector<std::pair<int, std::size_t>> Lists;
+
+	workerMutex WorkerA(1, Lists, Mutex);
+	workerMutex WorkerB(2, Lists, Mutex);
+
+	std::thread ThreadA(std::ref(WorkerA));
+	std::thread ThreadB(std::ref(WorkerB));
+
+	ThreadA.join();
+	ThreadB.join();
+
+	for(std::size_t i = 0; i < Lists.size(); ++i)
+		printf("(%d, %d), ", Lists[i].first, Lists[i].second);
+
+	return 0;
+}
+
 int main()
 {
+	test_mutex();
+
 	{
 		int A = foo(0);
 		int B = foo(1);
@@ -200,7 +263,7 @@ int main()
 	workerA WorkerA;
 	workerB WorkerB;
 
-	std::thread ThreadA(WorkerA);
+	std::thread ThreadA(std::ref(WorkerA));
 	std::thread ThreadB(&workerB::run, &WorkerB);
 
 	ThreadA.join();
