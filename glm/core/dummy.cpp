@@ -39,8 +39,6 @@
 #include <thread>
 #include <mutex>
 
-#define square(X) X*X;
-
 class base
 {
 public: 
@@ -140,8 +138,6 @@ int test_bind()
 
 int test()
 {
-	int u = square(2 + 3);
-
 	std::vector<int> v;
 	for(int i = 0; i < 5; ++i)
 		v.push_back(i);
