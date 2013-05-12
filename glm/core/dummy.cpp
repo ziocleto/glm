@@ -331,6 +331,5 @@ int main()
 		}
 	}
 
-	//glm::vec3 v{0, 1, 2};
 	return 0;
 }
