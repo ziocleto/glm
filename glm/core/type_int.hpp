@@ -31,11 +31,6 @@
 
 #include "setup.hpp"
 
-#if(((GLM_LANG & GLM_LANG_CXX11) == GLM_LANG_CXX11) || (defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 199901L)))
-//#if((defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 199901L)))
-#include <cstdint>
-#endif
-
 namespace glm{
 namespace detail
 {

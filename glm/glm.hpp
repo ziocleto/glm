@@ -76,7 +76,11 @@
 ///////////////////////////////////////////////////////////////////////////////////
 
 #include "core/_fixes.hpp"
-
+/*
+#if(!(__cplusplus >= 201103L))
+#	error "GLM 2 requires a C++11 compiler"
+#endif
+*/
 #ifndef glm_glm
 #define glm_glm
 
