@@ -75,6 +75,10 @@
 /// @ingroup core
 ///////////////////////////////////////////////////////////////////////////////////
 
+#ifndef GLM_SWIZZLE
+#	define GLM_SWIZZLE
+#endif
+
 #include "core/_fixes.hpp"
 
 #ifndef glm_glm
