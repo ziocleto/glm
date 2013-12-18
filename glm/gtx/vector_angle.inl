@@ -16,7 +16,11 @@ namespace glm
 		genType const & y
 	)
 	{
+#ifdef GLM_FORCE_RADIANS
+		return acos(dot(x, y));
+#else
 		return degrees(acos(dot(x, y)));
+#endif
 	}
 
 	//! \todo epsilon is hard coded to 0.01
@@ -47,7 +51,11 @@ namespace glm
 		detail::tvec3<valType> const & ref
 	)
 	{
-		valType const Angle(glm::degrees(glm::acos(glm::dot(x, y))));
+#ifdef GLM_FORCE_RADIANS
+		valType const Angle(acos(dot(x, y)));
+#else
+		valType const Angle(glm::degrees(acos(dot(x, y))));
+#endif
 
 		if(glm::dot(ref, glm::cross(x, y)) < valType(0))
 			return -Angle;
