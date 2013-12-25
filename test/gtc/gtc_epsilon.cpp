@@ -7,10 +7,9 @@
 // File    : test/gtc/epsilon.cpp
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
-#include <glm/glm.hpp>
-#include <glm/gtc/half_float.hpp>
 #include <glm/gtc/epsilon.hpp>
 #include <glm/gtc/constants.hpp>
+#include <glm/vector_relational.hpp>
 
 int test_defined()
 {
@@ -48,25 +47,25 @@ int test_equal()
 
 	{
 		T A(0);
-		T B = T(0) + glm::epsilon<T>();
+		T B = static_cast<T>(0) + glm::epsilon<T>();
 		Error += glm::epsilonEqual(A, B, glm::epsilon<T>() * T(2)) ? 0 : 1;
 	}
 
 	{
 		T A(0);
-		T B = T(0) - glm::epsilon<T>();
+		T B = static_cast<T>(0) - glm::epsilon<T>();
 		Error += glm::epsilonEqual(A, B, glm::epsilon<T>() * T(2)) ? 0 : 1;
 	}
 
 	{
-		T A = T(0) + glm::epsilon<T>();
-		T B = T(0);
+		T A = static_cast<T>(0) + glm::epsilon<T>();
+		T B = static_cast<T>(0);
 		Error += glm::epsilonEqual(A, B, glm::epsilon<T>() * T(2)) ? 0 : 1;
 	}
 
 	{
-		T A = T(0) - glm::epsilon<T>();
-		T B = T(0);
+		T A = static_cast<T>(0) - glm::epsilon<T>();
+		T B = static_cast<T>(0);
 		Error += glm::epsilonEqual(A, B, glm::epsilon<T>() * T(2)) ? 0 : 1;
 	}
 
@@ -78,7 +77,6 @@ int main()
 	int Error(0);
 
 	Error += test_defined();
-	Error += test_equal<glm::half>();
 	Error += test_equal<float>();
 	Error += test_equal<double>();
 

@@ -38,14 +38,14 @@
 ///////////////////////////////////////////////////////////////////////////////////
 
 #ifndef GLM_GTX_rotate_normalized_axis
-#define GLM_GTX_rotate_normalized_axis GLM_VERSION
+#define GLM_GTX_rotate_normalized_axis
 
 // Dependency:
 #include "../glm.hpp"
 #include "../gtc/epsilon.hpp"
 #include "../gtc/quaternion.hpp"
 
-#if(defined(GLM_MESSAGES) && !defined(glm_ext))
+#if(defined(GLM_MESSAGES) && !defined(GLM_EXT_INCLUDED))
 #	pragma message("GLM: GLM_GTX_rotate_normalized_axis extension included")
 #endif
 
@@ -81,7 +81,7 @@ namespace glm
 	template <typename T, precision P>
 	detail::tquat<T, P> rotateNormalizedAxis(
 		detail::tquat<T, P> const & q,
-		typename detail::tquat<T, P>::value_type const & angle,
+		typename detail::tquat<T, P>::T const & angle,
 		detail::tvec3<T, P> const & axis);
 
 	/// @}

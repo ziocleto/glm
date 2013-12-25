@@ -37,13 +37,12 @@
 ///////////////////////////////////////////////////////////////////////////////////
 
 #ifndef GLM_GTX_euler_angles
-#define GLM_GTX_euler_angles GLM_VERSION
+#define GLM_GTX_euler_angles
 
 // Dependency:
 #include "../glm.hpp"
-#include "../gtc/half_float.hpp"
 
-#if(defined(GLM_MESSAGES) && !defined(glm_ext))
+#if(defined(GLM_MESSAGES) && !defined(GLM_EXT_INCLUDED))
 #	pragma message("GLM: GLM_GTX_euler_angles extension included")
 #endif
 

@@ -37,14 +37,14 @@
 ///////////////////////////////////////////////////////////////////////////////////
 
 #ifndef GLM_GTX_matrix_query
-#define GLM_GTX_matrix_query GLM_VERSION
+#define GLM_GTX_matrix_query
 
 // Dependency:
 #include "../glm.hpp"
 #include "../gtx/vector_query.hpp"
 #include <limits>
 
-#if(defined(GLM_MESSAGES) && !defined(glm_ext))
+#if(defined(GLM_MESSAGES) && !defined(GLM_EXT_INCLUDED))
 #	pragma message("GLM: GLM_GTX_matrix_query extension included")
 #endif
 
@@ -79,7 +79,7 @@ namespace glm
 	template<typename genType>
 	bool isIdentity(
 		genType const & m,
-		typename genType::value_type const & epsilon/* = std::numeric_limits<typename genType::value_type>::epsilon()*/);
+		typename genType::T const & epsilon/* = std::numeric_limits<typename genType::value_type>::epsilon()*/);
 
 	/// Return whether a matrix is a normalized matrix.
 	/// From GLM_GTX_matrix_query extension.

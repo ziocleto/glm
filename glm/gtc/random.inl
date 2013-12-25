@@ -26,6 +26,8 @@
 /// @author Christophe Riccio
 ///////////////////////////////////////////////////////////////////////////////////
 
+#include "../geometric.hpp"
+#include "../exponential.hpp"
 #include <cstdlib>
 #include <ctime>
 #include <cassert>
@@ -44,12 +46,6 @@ namespace detail
 		}
 */
 	};
-	
-	template <>
-	GLM_FUNC_QUALIFIER half compute_linearRand::operator()<half> (half const & Min, half const & Max) const
-	{
-		return half(float(std::rand()) / float(RAND_MAX) * (float(Max) - float(Min)) + float(Min));
-	}
 
 	template <>
 	GLM_FUNC_QUALIFIER float compute_linearRand::operator()<float> (float const & Min, float const & Max) const
@@ -73,7 +69,7 @@ namespace detail
 	template <typename genType> 
 	GLM_FUNC_QUALIFIER genType linearRand
 	(
-		genType const & Min, 
+		genType const & Min,
 		genType const & Max
 	)
 	{

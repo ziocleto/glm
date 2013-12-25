@@ -10,10 +10,10 @@
 //#include <boost/array.hpp>
 //#include <boost/date_time/posix_time/posix_time.hpp>
 //#include <boost/thread/thread.hpp>
-#include <glm/glm.hpp>
 #include <glm/gtc/constants.hpp>
 #include <glm/gtc/epsilon.hpp>
 #include <cstdio>
+#include <cmath>
 
 int test_modf()
 {
@@ -319,6 +319,57 @@ namespace test_mix
 	}
 }//namespace test_mix
 
+namespace test_step
+{
+	template <typename EDGE, typename VEC>
+	struct test
+	{
+		EDGE edge;
+		VEC x;
+		VEC result;
+	};
+
+	test<float, glm::vec4> TestVec4Scalar [] =
+	{
+		{ 0.0f, glm::vec4(1.0f, 2.0f, 3.0f, 4.0f), glm::vec4(1.0f) },
+		{ 1.0f, glm::vec4(1.0f, 2.0f, 3.0f, 4.0f), glm::vec4(1.0f) },
+		{ 0.0f, glm::vec4(-1.0f, -2.0f, -3.0f, -4.0f), glm::vec4(0.0f) }
+	};
+
+	test<glm::vec4, glm::vec4> TestVec4Vector [] =
+	{
+		{ glm::vec4(-1.0f, -2.0f, -3.0f, -4.0f), glm::vec4(-2.0f, -3.0f, -4.0f, -5.0f), glm::vec4(0.0f) },
+		{ glm::vec4( 0.0f, 1.0f, 2.0f, 3.0f), glm::vec4( 1.0f, 2.0f, 3.0f, 4.0f), glm::vec4(1.0f) },
+		{ glm::vec4( 2.0f, 3.0f, 4.0f, 5.0f), glm::vec4( 1.0f, 2.0f, 3.0f, 4.0f), glm::vec4(0.0f) },
+		{ glm::vec4( 0.0f, 1.0f, 2.0f, 3.0f), glm::vec4(-1.0f,-2.0f,-3.0f,-4.0f), glm::vec4(0.0f) }
+	};
+
+	int run()
+	{
+		int Error = 0;
+
+		// vec4 and float
+		{
+			for (std::size_t i = 0; i < sizeof(TestVec4Scalar) / sizeof(test<float, glm::vec4>); ++i)
+			{
+				glm::vec4 Result = glm::step(TestVec4Scalar[i].edge, TestVec4Scalar[i].x);
+				Error += glm::all(glm::epsilonEqual(Result, TestVec4Scalar[i].result, glm::epsilon<float>())) ? 0 : 1;
+			}
+		}
+
+		// vec4 and vec4
+		{
+			for (std::size_t i = 0; i < sizeof(TestVec4Vector) / sizeof(test<glm::vec4, glm::vec4>); ++i)
+			{
+				glm::vec4 Result = glm::step(TestVec4Vector[i].edge, TestVec4Vector[i].x);
+				Error += glm::all(glm::epsilonEqual(Result, TestVec4Vector[i].result, glm::epsilon<float>())) ? 0 : 1;
+			}
+		}
+
+		return Error;
+	}
+}//namespace test_step
+
 int test_round()
 {
 	int Error = 0;
@@ -338,6 +389,23 @@ int test_round()
 		Error += F == 2.0f ? 0 : 1;
 		float G = glm::round(1.9f);
 		Error += G == 2.0f ? 0 : 1;
+
+#if GLM_LANG >= GLM_LANG_CXX11
+		float A1 = std::round(0.0f);
+		Error += A1 == A ? 0 : 1;
+		float B1 = std::round(0.5f);
+		Error += B1 == B ? 0 : 1;
+		float C1 = std::round(1.0f);
+		Error += C1 == C ? 0 : 1;
+		float D1 = std::round(0.1f);
+		Error += D1 == D ? 0 : 1;
+		float E1 = std::round(0.9f);
+		Error += E1 == E ? 0 : 1;
+		float F1 = std::round(1.5f);
+		Error += F == F ? 0 : 1;
+		float G1 = std::round(1.9f);
+		Error += G1 == G ? 0 : 1;
+#endif // GLM_LANG >= GLM_CXX0X
 	}
 	
 	{
@@ -509,17 +577,17 @@ int test_isnan()
 	double Zero_d = 0.0;
 
 	{
- 		Error += true == glm::isnan(0.0/Zero_d) ? 0 : 1;
- 		Error += true == glm::any(glm::isnan(glm::dvec2(0.0 / Zero_d))) ? 0 : 1;
- 		Error += true == glm::any(glm::isnan(glm::dvec3(0.0 / Zero_d))) ? 0 : 1;
- 		Error += true == glm::any(glm::isnan(glm::dvec4(0.0 / Zero_d))) ? 0 : 1;
+		Error += true == glm::isnan(0.0/Zero_d) ? 0 : 1;
+		Error += true == glm::any(glm::isnan(glm::dvec2(0.0 / Zero_d))) ? 0 : 1;
+		Error += true == glm::any(glm::isnan(glm::dvec3(0.0 / Zero_d))) ? 0 : 1;
+		Error += true == glm::any(glm::isnan(glm::dvec4(0.0 / Zero_d))) ? 0 : 1;
 	}
 
 	{
- 		Error += true == glm::isnan(0.0f/Zero_f) ? 0 : 1;
- 		Error += true == glm::any(glm::isnan(glm::vec2(0.0f/Zero_f))) ? 0 : 1;
- 		Error += true == glm::any(glm::isnan(glm::vec3(0.0f/Zero_f))) ? 0 : 1;
- 		Error += true == glm::any(glm::isnan(glm::vec4(0.0f/Zero_f))) ? 0 : 1;
+		Error += true == glm::isnan(0.0f/Zero_f) ? 0 : 1;
+		Error += true == glm::any(glm::isnan(glm::vec2(0.0f/Zero_f))) ? 0 : 1;
+		Error += true == glm::any(glm::isnan(glm::vec3(0.0f/Zero_f))) ? 0 : 1;
+		Error += true == glm::any(glm::isnan(glm::vec4(0.0f/Zero_f))) ? 0 : 1;
 	}
 
 	return Error;
@@ -533,25 +601,25 @@ int test_isinf()
 	double Zero_d = 0.0;
 
 	{
- 		Error += true == glm::isinf( 1.0/Zero_d) ? 0 : 1;
+		Error += true == glm::isinf( 1.0/Zero_d) ? 0 : 1;
 		Error += true == glm::isinf(-1.0/Zero_d) ? 0 : 1;
- 		Error += true == glm::any(glm::isinf(glm::dvec2( 1.0/Zero_d))) ? 0 : 1;
- 		Error += true == glm::any(glm::isinf(glm::dvec2(-1.0/Zero_d))) ? 0 : 1;
- 		Error += true == glm::any(glm::isinf(glm::dvec3( 1.0/Zero_d))) ? 0 : 1;
- 		Error += true == glm::any(glm::isinf(glm::dvec3(-1.0/Zero_d))) ? 0 : 1;
- 		Error += true == glm::any(glm::isinf(glm::dvec4( 1.0/Zero_d))) ? 0 : 1;
- 		Error += true == glm::any(glm::isinf(glm::dvec4(-1.0/Zero_d))) ? 0 : 1;
+		Error += true == glm::any(glm::isinf(glm::dvec2( 1.0/Zero_d))) ? 0 : 1;
+		Error += true == glm::any(glm::isinf(glm::dvec2(-1.0/Zero_d))) ? 0 : 1;
+		Error += true == glm::any(glm::isinf(glm::dvec3( 1.0/Zero_d))) ? 0 : 1;
+		Error += true == glm::any(glm::isinf(glm::dvec3(-1.0/Zero_d))) ? 0 : 1;
+		Error += true == glm::any(glm::isinf(glm::dvec4( 1.0/Zero_d))) ? 0 : 1;
+		Error += true == glm::any(glm::isinf(glm::dvec4(-1.0/Zero_d))) ? 0 : 1;
 	}
  
 	{
- 		Error += true == glm::isinf( 1.0f/Zero_f) ? 0 : 1;
- 		Error += true == glm::isinf(-1.0f/Zero_f) ? 0 : 1;
- 		Error += true == glm::any(glm::isinf(glm::vec2( 1.0f/Zero_f))) ? 0 : 1;
- 		Error += true == glm::any(glm::isinf(glm::vec2(-1.0f/Zero_f))) ? 0 : 1;
- 		Error += true == glm::any(glm::isinf(glm::vec3( 1.0f/Zero_f))) ? 0 : 1;
- 		Error += true == glm::any(glm::isinf(glm::vec3(-1.0f/Zero_f))) ? 0 : 1;
- 		Error += true == glm::any(glm::isinf(glm::vec4( 1.0f/Zero_f))) ? 0 : 1;
- 		Error += true == glm::any(glm::isinf(glm::vec4(-1.0f/Zero_f))) ? 0 : 1;
+		Error += true == glm::isinf( 1.0f/Zero_f) ? 0 : 1;
+		Error += true == glm::isinf(-1.0f/Zero_f) ? 0 : 1;
+		Error += true == glm::any(glm::isinf(glm::vec2( 1.0f/Zero_f))) ? 0 : 1;
+		Error += true == glm::any(glm::isinf(glm::vec2(-1.0f/Zero_f))) ? 0 : 1;
+		Error += true == glm::any(glm::isinf(glm::vec3( 1.0f/Zero_f))) ? 0 : 1;
+		Error += true == glm::any(glm::isinf(glm::vec3(-1.0f/Zero_f))) ? 0 : 1;
+		Error += true == glm::any(glm::isinf(glm::vec4( 1.0f/Zero_f))) ? 0 : 1;
+		Error += true == glm::any(glm::isinf(glm::vec4(-1.0f/Zero_f))) ? 0 : 1;
 	}
  
 	return Error;
@@ -564,6 +632,7 @@ int main()
 	Error += test_modf();
 	Error += test_floatBitsToInt();
 	Error += test_floatBitsToUint();
+	Error += test_step::run();
 	Error += test_mix::run();
 	Error += test_round();
 	Error += test_roundEven();

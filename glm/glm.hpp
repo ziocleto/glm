@@ -75,68 +75,31 @@
 /// @ingroup core
 ///////////////////////////////////////////////////////////////////////////////////
 
-#include "core/_fixes.hpp"
+#include "detail/_fixes.hpp"
 
-#ifndef glm_glm
-#define glm_glm
+#ifndef GLM_INCLUDED
+#define GLM_INCLUDED
 
 #include <cmath>
 #include <climits>
 #include <cfloat>
 #include <limits>
 #include <cassert>
-//#include <cstdint>
-//#include <type_traits>
-
 #include "fwd.hpp"
-#include "core/setup.hpp"
 
 #if(defined(GLM_MESSAGES) && !defined(GLM_MESSAGE_CORE_INCLUDED_DISPLAYED))
 #	define GLM_MESSAGE_CORE_INCLUDED_DISPLAYED
 #	pragma message("GLM: Core library included")
 #endif//GLM_MESSAGE
 
-#include "./core/_vectorize.hpp"
+#include "./detail/func_trigonometric.hpp"
+#include "./detail/func_exponential.hpp"
+#include "./detail/func_common.hpp"
+#include "./detail/func_packing.hpp"
+#include "./detail/func_geometric.hpp"
+#include "./detail/func_matrix.hpp"
+#include "./detail/func_vector_relational.hpp"
+#include "./detail/func_integer.hpp"
+#include "./detail/func_noise.hpp"
 
-#include "./core/type_half.hpp"
-#include "./core/type_float.hpp"
-#include "./core/type_int.hpp"
-
-#include "./core/_literals.hpp"
-
-#include "./core/type_vec1.hpp"
-#include "./core/type_vec2.hpp"
-#include "./core/type_vec3.hpp"
-#include "./core/type_vec4.hpp"
-
-#include "./core/type_mat2x2.hpp"
-#include "./core/type_mat2x3.hpp"
-#include "./core/type_mat2x4.hpp"
-#include "./core/type_mat3x2.hpp"
-#include "./core/type_mat3x3.hpp"
-#include "./core/type_mat3x4.hpp"
-#include "./core/type_mat4x2.hpp"
-#include "./core/type_mat4x3.hpp"
-#include "./core/type_mat4x4.hpp"
-
-#include "./core/func_trigonometric.hpp"
-#include "./core/func_exponential.hpp"
-#include "./core/func_common.hpp"
-#include "./core/func_packing.hpp"
-#include "./core/func_geometric.hpp"
-#include "./core/func_matrix.hpp"
-#include "./core/func_vector_relational.hpp"
-#include "./core/func_integer.hpp"
-#include "./core/func_noise.hpp"
-
-#include "./core/_swizzle.hpp"
-
-////////////////////
-// check type sizes
-#ifndef GLM_STATIC_ASSERT_NULL
-	GLM_STATIC_ASSERT(sizeof(glm::float16) == 2, "float16 size isn't 2 bytes on this platform");
-	GLM_STATIC_ASSERT(sizeof(glm::float32) == 4, "float32 size isn't 4 bytes on this platform");
-	GLM_STATIC_ASSERT(sizeof(glm::float64) == 8, "float64 size isn't 8 bytes on this platform");
-#endif//GLM_STATIC_ASSERT_NULL
-
-#endif//glm_glm
+#endif//GLM_INCLUDED

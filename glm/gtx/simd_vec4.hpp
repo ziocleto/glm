@@ -36,7 +36,7 @@
 ///////////////////////////////////////////////////////////////////////////////////
 
 #ifndef GLM_GTX_simd_vec4
-#define GLM_GTX_simd_vec4 GLM_VERSION
+#define GLM_GTX_simd_vec4
 
 // Dependency:
 #include "../glm.hpp"
@@ -44,24 +44,43 @@
 #if(GLM_ARCH != GLM_ARCH_PURE)
 
 #if(GLM_ARCH & GLM_ARCH_SSE2)
-#	include "../core/intrinsic_common.hpp"
-#	include "../core/intrinsic_geometric.hpp"
-#	include "../core/intrinsic_integer.hpp"
+#	include "../detail/intrinsic_common.hpp"
+#	include "../detail/intrinsic_geometric.hpp"
+#	include "../detail/intrinsic_integer.hpp"
 #else
 #	error "GLM: GLM_GTX_simd_vec4 requires compiler support of SSE2 through intrinsics"
 #endif
 
-#if(defined(GLM_MESSAGES) && !defined(glm_ext))
+#if(defined(GLM_MESSAGES) && !defined(GLM_EXT_INCLUDED))
 #	pragma message("GLM: GLM_GTX_simd_vec4 extension included")
 #endif
 
 
 // Warning silencer for nameless struct/union.
 #if (GLM_COMPILER & GLM_COMPILER_VC)
-#   pragma warning(push)
-#   pragma warning(disable:4201)   // warning C4201: nonstandard extension used : nameless struct/union
+#	pragma warning(push)
+#	pragma warning(disable:4201)   // warning C4201: nonstandard extension used : nameless struct/union
 #endif
 
+namespace glm
+{
+	enum comp
+	{
+		X = 0,
+		R = 0,
+		S = 0,
+		Y = 1,
+		G = 1,
+		T = 1,
+		Z = 2,
+		B = 2,
+		P = 2,
+		W = 3,
+		A = 3,
+		Q = 3
+	};
+
+}//namespace glm
 
 namespace glm{
 namespace detail
@@ -111,7 +130,7 @@ namespace detail
 			vec4 const & v);
 
 		////////////////////////////////////////
-		//// Convertion vector constructors
+		//// Conversion vector constructors
 
 		fvec4SIMD(vec2 const & v, float const & s1, float const & s2);
 		fvec4SIMD(float const & s1, vec2 const & v, float const & s2);

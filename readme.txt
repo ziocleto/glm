@@ -36,10 +36,12 @@ GLM is a header only library, there is nothing to build, just include it.
 More informations in GLM manual:
 http://glm.g-truc.net/glm.pdf
 
-================================================================================
-GLM 0.9.5.0: 2013-XX-XX
+================================================================================s
+GLM 0.9.5.0: 2013-12-25
 --------------------------------------------------------------------------------
 - Added forward declarations (glm/fwd.hpp) for faster compilations
+- Added per feature headers
+- Minimized GLM internal dependencies
 - Improved Intel Compiler detection
 - Added bitfieldInterleave and _mm_bit_interleave_si128 functions
 - Added GTX_scalar_relational
@@ -51,8 +53,68 @@ GLM 0.9.5.0: 2013-XX-XX
 - Removed GTX_ocl_type extension
 - Fixed post increment and decrement operators
 - Fixed perspective with zNear == 0 (#71)
-- Fixed slerp when costheta is close to 1
-- Fixed mat4x2 value_type constructor
+- Removed l-value swizzle operators
+- Cleaned up compiler detection code for unsupported compilers
+- Replaced C cast by C++ casts
+- Fixed .length() that should return a int and not a size_t
+- Added GLM_FORCE_SIZE_T_LENGTH and glm::length_t
+- Removed unnecessary conversions
+- Optimized packing and unpacking functions
+- Removed the normalization of the up argument of lookAt function (#114)
+- Added low precision specializations of inversesqrt
+- Fixed ldexp and frexp implementations
+- Increased assert coverage
+- Increased static_assert coverage
+- Replaced GLM traits by STL traits when possible
+- Allowed including individual core feature
+- Increased unit tests completness
+- Added creating of a quaternion from two vectors
+- Added C++11 initializer lists
+- Fixed umulExtended and imulExtended implementations for vector types (#76)
+- Fixed CUDA coverage for GTC extensions
+- Added GTX_io extension
+- Improved GLM messages enabled when defining GLM_MESSAGES
+- Hidden matrix _inverse function implementation detail into private section
+
+================================================================================
+GLM 0.9.4.6: 2013-09-20
+--------------------------------------------------------------------------------
+- Fixed detection to select the last known compiler if newer version #106
+- Fixed is_int and is_uint code duplication with GCC and C++11 #107 
+- Fixed test suite build while using Clang in C++11 mode
+- Added c++1y mode support in CMake test suite
+- Removed ms extension mode to CMake when no using Visual C++
+- Added pedantic mode to CMake test suite for Clang and GCC
+- Added use of GCC frontend on Unix for ICC and Visual C++ fronted on Windows
+  for ICC
+- Added compilation errors for unsupported compiler versions
+- Fixed glm::orientation with GLM_FORCE_RADIANS defined #112
+- Fixed const ref issue on assignment operator taking a scalar parameter #116
+- Fixed glm::eulerAngleY implementation #117
+
+================================================================================
+GLM 0.9.4.5: 2013-08-12
+--------------------------------------------------------------------------------
+- Fixed CUDA support
+- Fixed inclusion of intrinsics in "pure" mode #92
+- Fixed language detection on GCC when the C++0x mode isn't enabled #95
+- Fixed issue #97: register is deprecated in C++11
+- Fixed issue #96: CUDA issues
+- Added Windows CE detection #92
+- Added missing value_ptr for quaternions #99
+
+================================================================================
+GLM 0.9.4.4: 2013-05-29
+--------------------------------------------------------------------------------
+- Fixed slerp when costheta is close to 1 #65
+- Fixed mat4x2 value_type constructor #70
+- Fixed glm.natvis for Visual C++ 12 #82
+- Added assert in inversesqrt to detect division by zero #61
+- Fixed missing swizzle operators #86
+- Fixed CUDA warnings #86
+- Fixed GLM natvis for VC11 #82
+- Fixed GLM_GTX_multiple with negative values #79
+- Fixed glm::perspective when zNear is zero #71
 
 ================================================================================
 GLM 0.9.4.3: 2013-03-20

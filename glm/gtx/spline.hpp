@@ -36,13 +36,13 @@
 ///////////////////////////////////////////////////////////////////////////////////
 
 #ifndef GLM_GTX_spline
-#define GLM_GTX_spline GLM_VERSION
+#define GLM_GTX_spline
 
 // Dependency:
 #include "../glm.hpp"
 #include "../gtx/optimum_pow.hpp"
 
-#if(defined(GLM_MESSAGES) && !defined(glm_ext))
+#if(defined(GLM_MESSAGES) && !defined(GLM_EXT_INCLUDED))
 #	pragma message("GLM: GLM_GTX_spline extension included")
 #endif
 
@@ -54,7 +54,7 @@ namespace glm
 	//! Return a point from a catmull rom curve.
 	/// @see gtx_spline extension.
 	template <typename genType> 
-	genType catmullRom(
+	GLM_FUNC_DECL genType catmullRom(
 		genType const & v1, 
 		genType const & v2, 
 		genType const & v3, 
@@ -64,7 +64,7 @@ namespace glm
 	//! Return a point from a hermite curve.
 	/// @see gtx_spline extension.
 	template <typename genType> 
-	genType hermite(
+	GLM_FUNC_DECL genType hermite(
 		genType const & v1, 
 		genType const & t1, 
 		genType const & v2, 
@@ -74,7 +74,7 @@ namespace glm
 	//! Return a point from a cubic curve. 
 	/// @see gtx_spline extension.
 	template <typename genType> 
-	genType cubic(
+	GLM_FUNC_DECL genType cubic(
 		genType const & v1, 
 		genType const & v2, 
 		genType const & v3, 

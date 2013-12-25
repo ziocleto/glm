@@ -10,8 +10,45 @@
 // - GLM core
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
-namespace glm
+namespace glm{
+namespace detail
 {
+	template <bool Signed>
+	struct higherMultiple
+	{
+		template <typename genType>
+		GLM_FUNC_QUALIFIER genType operator()
+		(
+			genType const & Source,
+			genType const & Multiple
+		)
+		{
+			if (Source > genType(0))
+			{
+				genType Tmp = Source - genType(1);
+				return Tmp + (Multiple - (Tmp % Multiple));
+			}
+			else
+				return Source + (-Source % Multiple);
+		}
+	};
+
+	template <>
+	struct higherMultiple<false>
+	{
+		template <typename genType>
+		GLM_FUNC_QUALIFIER genType operator()
+		(
+			genType const & Source,
+			genType const & Multiple
+		)
+		{
+			genType Tmp = Source - genType(1);
+			return Tmp + (Multiple - (Tmp % Multiple));
+		}
+	};
+}//namespace detail
+
 	//////////////////////
 	// higherMultiple
 
@@ -22,32 +59,8 @@ namespace glm
 		genType const & Multiple
 	)
 	{
-		if (Source > genType(0))
-		{
-			genType Tmp = Source - genType(1);
-			return Tmp + (Multiple - (Tmp % Multiple));
-		}
-		else
-			return Source + (-Source % Multiple);
-	}
-
-	template <>
-	GLM_FUNC_QUALIFIER detail::half higherMultiple
-	(
-		detail::half const & SourceH,
-		detail::half const & MultipleH
-	)
-	{
-		float Source = SourceH.toFloat();
-		float Multiple = MultipleH.toFloat();
-
-		if (Source > float(0))
-		{
-			float Tmp = Source - float(1);
-			return detail::half(Tmp + (Multiple - std::fmod(Tmp, Multiple)));
-		}
-		else
-			return detail::half(Source + std::fmod(-Source, Multiple));
+		detail::higherMultiple<std::numeric_limits<genType>::is_signed> Compute;
+		return Compute(Source, Multiple);
 	}
 
 	template <>
@@ -100,25 +113,6 @@ namespace glm
 		{
 			genType Tmp = Source + genType(1);
 			return Tmp - Tmp % Multiple - Multiple;
-		}
-	}
-
-	template <>
-	GLM_FUNC_QUALIFIER detail::half lowerMultiple
-	(
-		detail::half const & SourceH,
-		detail::half const & MultipleH
-	)
-	{
-		float Source = SourceH.toFloat();
-		float Multiple = MultipleH.toFloat();
-
-		if (Source >= float(0))
-			return detail::half(Source - std::fmod(Source, Multiple));
-		else
-		{
-			float Tmp = Source + float(1);
-			return detail::half(Tmp - std::fmod(Tmp, Multiple) - Multiple);
 		}
 	}
 

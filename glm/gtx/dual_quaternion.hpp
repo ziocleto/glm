@@ -39,15 +39,14 @@
 ///////////////////////////////////////////////////////////////////////////////////
 
 #ifndef GLM_GTX_dual_quaternion
-#define GLM_GTX_dual_quaternion GLM_VERSION
+#define GLM_GTX_dual_quaternion
 
 // Dependency:
 #include "../glm.hpp"
-#include "../gtc/half_float.hpp"
 #include "../gtc/constants.hpp"
 #include "../gtc/quaternion.hpp"
 
-#if(defined(GLM_MESSAGES) && !defined(glm_ext))
+#if(defined(GLM_MESSAGES) && !defined(GLM_EXT_INCLUDED))
 #	pragma message("GLM: GLM_GTX_dual_quaternion extension included")
 #endif
 
@@ -55,18 +54,16 @@ namespace glm{
 namespace detail
 {
 	template <typename T, precision P>
-	struct tdualquat// : public genType<T, tquat>
+	struct tdualquat
 	{
 		enum ctor{null};
 		
-		typedef T value_type;
 		typedef glm::detail::tquat<T, P> part_type;
-		typedef std::size_t size_type;
 		
 	public:
 		glm::detail::tquat<T, P> real, dual;
 		
-		GLM_FUNC_DECL GLM_CONSTEXPR size_type length() const;
+		GLM_FUNC_DECL GLM_CONSTEXPR int length() const;
 		
 		// Constructors
 		tdualquat();
@@ -84,8 +81,8 @@ namespace detail
 		part_type const & operator[](int i) const;
 		
 		// Operators
-		tdualquat<T, P> & operator*=(value_type const & s);
-		tdualquat<T, P> & operator/=(value_type const & s);
+		tdualquat<T, P> & operator*=(T const & s);
+		tdualquat<T, P> & operator/=(T const & s);
 	};
 	
 	template <typename T, precision P>
@@ -125,17 +122,17 @@ namespace detail
 	template <typename T, precision P>
 	detail::tdualquat<T, P> operator* (
 		detail::tdualquat<T, P> const & q,
-		typename detail::tdualquat<T, P>::value_type const & s);
+		T const & s);
 	
 	template <typename T, precision P>
 	detail::tdualquat<T, P> operator* (
-		typename detail::tdualquat<T, P>::value_type const & s,
+		T const & s,
 		detail::tdualquat<T, P> const & q);
 	
 	template <typename T, precision P>
 	detail::tdualquat<T, P> operator/ (
 		detail::tdualquat<T, P> const & q,
-		typename detail::tdualquat<T, P>::value_type const & s);
+		T const & s);
 } //namespace detail
 	
 	/// @addtogroup gtc_dual_quaternion
@@ -155,7 +152,7 @@ namespace detail
 	detail::tdualquat<T, P> lerp(
 		detail::tdualquat<T, P> const & x,
 		detail::tdualquat<T, P> const & y,
-		typename detail::tdualquat<T, P>::value_type const & a);
+		T const & a);
 
 	/// Returns the q inverse.
 	///
@@ -202,22 +199,6 @@ namespace detail
 	detail::tdualquat<T, P> dualquat_cast(
 		detail::tmat3x4<T, P> const & x);
 
-
-	/// Dual-quaternion of low half-precision floating-point numbers.
-	///
-	/// @see gtc_dual_quaternion
-	typedef detail::tdualquat<half, lowp>		lowp_hdualquat;
-	
-	/// Dual-quaternion of medium half-precision floating-point numbers.
-	///
-	/// @see gtc_dual_quaternion
-	typedef detail::tdualquat<half, mediump>	mediump_hdualquat;
-	
-	/// Dual-quaternion of high half-precision floating-point numbers.
-	///
-	/// @see gtc_dual_quaternion
-	typedef detail::tdualquat<half, highp>		highp_hdualquat;
-	
 	
 	/// Dual-quaternion of low single-precision floating-point numbers.
 	///
@@ -290,22 +271,6 @@ namespace detail
 #	error "GLM error: multiple default precision requested for single-precision floating-point types"
 #endif
 	
-	
-#if(!defined(GLM_PRECISION_HIGHP_HALF) && !defined(GLM_PRECISION_MEDIUMP_HALF) && !defined(GLM_PRECISION_LOWP_HALF))
-	/// Dual-quaternion of default half-precision floating-point numbers.
-	///
-	/// @see gtc_dual_quaternion
-	typedef highp_hdualquat			hdualquat;
-#elif(defined(GLM_PRECISION_HIGHP_HALF) && !defined(GLM_PRECISION_MEDIUMP_HALF) && !defined(GLM_PRECISION_LOWP_HALF))
-	typedef highp_hdualquat			hdualquat;
-#elif(!defined(GLM_PRECISION_HIGHP_HALF) && defined(GLM_PRECISION_MEDIUMP_HALF) && !defined(GLM_PRECISION_LOWP_HALF))
-	typedef mediump_hdualquat		hdualquat;
-#elif(!defined(GLM_PRECISION_HIGHP_HALF) && !defined(GLM_PRECISION_MEDIUMP_HALF) && defined(GLM_PRECISION_LOWP_HALF))
-	typedef lowp_hdualquat			hdualquat;
-#else
-#	error "GLM error: Multiple default precision requested for half-precision floating-point types"
-#endif
-
 
 #if(!defined(GLM_PRECISION_HIGHP_DOUBLE) && !defined(GLM_PRECISION_MEDIUMP_DOUBLE) && !defined(GLM_PRECISION_LOWP_DOUBLE))
 	/// Dual-quaternion of default double-precision floating-point numbers.

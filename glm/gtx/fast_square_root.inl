@@ -16,7 +16,7 @@ namespace glm
 		genType const & x
 	)
 	{
-		GLM_STATIC_ASSERT(detail::type<genType>::is_float, "'fastSqrt' only accept floating-point input");
+		GLM_STATIC_ASSERT(std::numeric_limits<genType>::is_iec559, "'fastSqrt' only accept floating-point input");
 
 		return genType(1) / fastInverseSqrt(x);
 	}
@@ -30,15 +30,7 @@ namespace glm
 		genType const & x
 	)
 	{
-		genType tmp = x;
-		float xhalf = 0.5f * float(tmp);
-		uint i = *(uint*)&x;
-		i = 0x5f375a86 - (i >> 1);
-		//x = *(float*)&i;
-		//x = *((float*)(char*)&i);
-		tmp = detail::uif32(i).f;
-		tmp = tmp * (1.5f - xhalf * tmp * tmp);
-		return genType(tmp);
+		return detail::fastInversesqrt<genType, uint>(x);
 	}
 
 	VECTORIZE_VEC(fastInverseSqrt)

@@ -7,9 +7,9 @@
 // File    : test/gtc/quaternion.cpp
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
-#include <glm/glm.hpp>
 #include <glm/gtc/quaternion.hpp>
 #include <glm/gtc/epsilon.hpp>
+#include <glm/vector_relational.hpp>
 
 int test_quat_angle()
 {
@@ -133,14 +133,6 @@ int test_quat_euler()
 		glm::dvec3 Angles = glm::eulerAngles(q);
 	}
 
-	{
-		glm::hquat q(glm::half(1.0f), glm::half(0.0f), glm::half(0.0f), glm::half(1.0f));
-		glm::half Roll = glm::roll(q);
-		glm::half Pitch = glm::pitch(q);
-		glm::half Yaw = glm::yaw(q);
-		glm::hvec3 Angles = glm::eulerAngles(q);
-	}
-
 	return Error;
 }
 
@@ -205,6 +197,46 @@ int test_quat_slerp()
 	return Error;
 }
 
+int test_quat_mul()
+{
+	int Error(0);
+
+	glm::quat temp1 = glm::normalize(glm::quat(1.0f, glm::vec3(0.0, 1.0, 0.0)));
+	glm::quat temp2 = glm::normalize(glm::quat(0.5f, glm::vec3(1.0, 0.0, 0.0)));
+
+	glm::vec3 transformed0 = (temp1 * glm::vec3(0.0, 1.0, 0.0) * glm::inverse(temp1));
+	glm::vec3 temp4 = temp2 * transformed0 * glm::inverse(temp2);
+
+	glm::quat temp5 = glm::normalize(temp1 * temp2);
+	glm::vec3 temp6 = temp5 * glm::vec3(0.0, 1.0, 0.0) * glm::inverse(temp5);
+
+  {
+    glm::quat temp7;
+
+    temp7 *= temp5;
+    temp7 *= glm::inverse(temp5);
+
+    Error += temp7 != glm::quat();
+  }
+  
+	return Error;
+}
+
+int test_quat_two_axis_ctr()
+{
+	int Error(0);
+
+	glm::quat q1(glm::vec3(1, 0, 0), glm::vec3(0, 1, 0));
+	glm::vec3 v1 = q1 * glm::vec3(1, 0, 0);
+	Error += glm::all(glm::epsilonEqual(v1, glm::vec3(0, 1, 0), 0.0001f)) ? 0 : 1;
+
+	glm::quat q2 = q1 * q1;
+	glm::vec3 v2 = q2 * glm::vec3(1, 0, 0);
+	Error += glm::all(glm::epsilonEqual(v2, glm::vec3(-1, 0, 0), 0.0001f)) ? 0 : 1;
+
+	return Error;
+}
+
 int test_quat_type()
 {
 	glm::quat A;
@@ -217,6 +249,8 @@ int main()
 {
 	int Error(0);
 
+	Error += test_quat_two_axis_ctr();
+	Error += test_quat_mul();
 	Error += test_quat_precision();
 	Error += test_quat_type();
 	Error += test_quat_angle();

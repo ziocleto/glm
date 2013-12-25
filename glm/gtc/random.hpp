@@ -38,13 +38,13 @@
 ///////////////////////////////////////////////////////////////////////////////////
 
 #ifndef GLM_GTC_random
-#define GLM_GTC_random GLM_VERSION
+#define GLM_GTC_random
 
 // Dependency:
-#include "../glm.hpp"
-#include "../gtc/half_float.hpp"
+#include "../vec2.hpp"
+#include "../vec3.hpp"
 
-#if(defined(GLM_MESSAGES) && !defined(glm_ext))
+#if(defined(GLM_MESSAGES) && !defined(GLM_EXT_INCLUDED))
 #	pragma message("GLM: GLM_GTC_random extension included")
 #endif
 
@@ -60,7 +60,7 @@ namespace glm
 	/// @tparam genType Value type. Currently supported: half (not recommanded), float or double scalars and vectors.
 	/// @see gtc_random
 	template <typename genType>
-	genType linearRand(
+	GLM_FUNC_DECL genType linearRand(
 		genType const & Min,
 		genType const & Max);
 
@@ -70,7 +70,7 @@ namespace glm
 	/// @param Deviation
 	/// @see gtc_random
 	template <typename genType>
-	genType gaussRand(
+	GLM_FUNC_DECL genType gaussRand(
 		genType const & Mean,
 		genType const & Deviation);
 	
@@ -79,7 +79,7 @@ namespace glm
 	/// @param Radius 
 	/// @see gtc_random
 	template <typename T>
-	detail::tvec2<T, defaultp> circularRand(
+	GLM_FUNC_DECL detail::tvec2<T, defaultp> circularRand(
 		T const & Radius);
 	
 	/// Generate a random 3D vector which coordinates are regulary distributed on a sphere of a given radius
@@ -87,7 +87,7 @@ namespace glm
 	/// @param Radius
 	/// @see gtc_random
 	template <typename T>
-	detail::tvec3<T, defaultp> sphericalRand(
+	GLM_FUNC_DECL detail::tvec3<T, defaultp> sphericalRand(
 		T const & Radius);
 	
 	/// Generate a random 2D vector which coordinates are regulary distributed within the area of a disk of a given radius
@@ -95,7 +95,7 @@ namespace glm
 	/// @param Radius
 	/// @see gtc_random
 	template <typename T>
-	detail::tvec2<T, defaultp> diskRand(
+	GLM_FUNC_DECL detail::tvec2<T, defaultp> diskRand(
 		T const & Radius);
 	
 	/// Generate a random 3D vector which coordinates are regulary distributed within the volume of a ball of a given radius
@@ -103,7 +103,7 @@ namespace glm
 	/// @param Radius
 	/// @see gtc_random
 	template <typename T>
-	detail::tvec3<T, defaultp> ballRand(
+	GLM_FUNC_DECL detail::tvec3<T, defaultp> ballRand(
 		T const & Radius);
 	
 	/// @}
