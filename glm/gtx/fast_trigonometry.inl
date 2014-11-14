@@ -9,44 +9,23 @@
 
 namespace glm
 {
-	template <typename T>
-	GLM_FUNC_QUALIFIER T wrapAngle(T const & angle)
+	// sin
+	template <typename T> 
+	GLM_FUNC_QUALIFIER T fastSin(T const & x)
 	{
-		return abs<T>(mod<T>(angle, two_pi<T>()));
+		return x - ((x * x * x) / T(6)) + ((x * x * x * x * x) / T(120)) - ((x * x * x * x * x * x * x) / T(5040));
 	}
 
-	VECTORIZE_VEC(wrapAngle)
-
-	template <typename T>
-	GLM_FUNC_QUALIFIER T cos_52s(T const &  x)
-	{
-		T const xx(x * x);
-		return (T(0.9999932946) + xx * (T(-0.4999124376) + xx * (T(0.0414877472) + xx * T(-0.0012712095))));
-	}
-
-	VECTORIZE_VEC(cos_52s)
+	VECTORIZE_VEC(fastSin)
 
 	// cos
 	template <typename T> 
 	GLM_FUNC_QUALIFIER T fastCos(T const & x)
 	{
-		T const angle(wrapAngle<T>(x));
-		if(angle<half_pi<T>()) return cos_52s(angle);
-		if(angle<pi<T>()) return -cos_52s(pi<T>() - angle);
-		if(angle<(T(3) * half_pi<T>())) return -cos_52s(angle - pi<T>());
-		return cos_52s(two_pi<T>() - angle);
+		return T(1) - (x * x * T(0.5)) + (x * x * x * x * T(0.041666666666)) - (x * x * x * x * x * x * T(0.00138888888888));
 	}
 
 	VECTORIZE_VEC(fastCos)
-
-	// sin
-	template <typename T>
-	GLM_FUNC_QUALIFIER T fastSin(T const & x)
-	{
-		return fastCos<T>(half_pi<T>() - x);
-	}
-
-	VECTORIZE_VEC(fastSin)
 
 	// tan
 	template <typename T> 
