@@ -56,6 +56,9 @@ namespace glm
 	/// @{
 
 	//! Returns the area of the triangle made by the three given vertices.
+	/// If the triangles are given in counter-clockwise order, the area will be
+	/// positive.  If they're given in clockwise order, the area will be negative.
+	/// If they're collinear, the area will be zero.
 	template<typename T, precision P = defaultp, typename areaType = float>
 	GLM_FUNC_DECL areaType area(const tvec2<T, P>& a, const tvec2<T, P>& b, const tvec2<T, P>& c);
 
