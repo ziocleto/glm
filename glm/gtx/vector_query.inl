@@ -219,4 +219,25 @@ namespace detail
 		return isNormalized(v0, epsilon) && isNormalized(v1, epsilon) && (abs(dot(v0, v1)) <= epsilon);
 	}
 
+	template <typename T, precision P>
+	GLM_FUNC_QUALIFIER bool isLeft
+	(
+		tvec2<T, P> const& a,
+		tvec2<T, P> const& b,
+		tvec2<T, P> const& v
+	)
+	{
+		return detail::area2(a, b, v) > 0;
+	}
+
+	template <typename T, precision P>
+	GLM_FUNC_QUALIFIER bool isLeftOrOn
+	(
+		tvec2<T, P> const& a,
+		tvec2<T, P> const& b,
+		tvec2<T, P> const& v
+	)
+	{
+		return detail::area2(a, b, v) >= 0;
+	}
 }//namespace glm
