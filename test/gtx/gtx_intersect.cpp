@@ -31,9 +31,38 @@
 
 #include <glm/gtx/intersect.hpp>
 
+using namespace glm;
+
+int test_LineLine() {
+	int Error(0);
+
+	Error += intersectLineLine(vec2(0, 2), vec2(2, 0), vec2(1, 1), vec2(1, 3)) ? 0 : 1;
+	Error += intersectLineLine(vec2(-1, -1), vec2(1, 1), vec2(1, -1), vec2(-1, 1)) ? 0 : 1;
+	Error += intersectLineLine(vec2(-1, -1), vec2(1, 1), vec2(-1, 1), vec2(1, -1)) ? 0 : 1;
+	Error += !intersectLineLine(vec2(-1, 1), vec2(1, 1), vec2(-1, -1), vec2(1, -1)) ? 0 : 1;
+	Error += !intersectLineLine(vec2(-1, 1), vec2(1, 1), vec2(0, 0), vec2(0, -1)) ? 0 : 1;
+
+	return Error;
+}
+
+int test_LineLineProper() {
+	int Error(0);
+
+	Error += !intersectLineLineProper(vec2(0, 2), vec2(2, 0), vec2(1, 1), vec2(1, 3)) ? 0 : 1;
+	Error += intersectLineLineProper(vec2(-1, -1), vec2(1, 1), vec2(1, -1), vec2(-1, 1)) ? 0 : 1;
+	Error += intersectLineLineProper(vec2(-1, -1), vec2(1, 1), vec2(-1, 1), vec2(1, -1)) ? 0 : 1;
+	Error += !intersectLineLineProper(vec2(-1, 1), vec2(1, 1), vec2(-1, -1), vec2(1, -1)) ? 0 : 1;
+	Error += !intersectLineLineProper(vec2(-1, 1), vec2(1, 1), vec2(0, 0), vec2(0, -1)) ? 0 : 1;
+
+	return Error;
+}
+
 int main()
 {
 	int Error(0);
+
+	Error += test_LineLine();
+	Error += test_LineLineProper();
 
 	return Error;
 }

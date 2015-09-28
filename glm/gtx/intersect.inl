@@ -210,4 +210,37 @@ namespace glm
 		intersectionNormal2 = (intersectionPoint2 - sphereCenter) / sphereRadius;
 		return true;
 	}
+
+	template <typename T, precision P>
+	GLM_FUNC_QUALIFIER bool intersectLineLine
+	(
+		tvec2<T, P> const& a,
+		tvec2<T, P> const& b,
+		tvec2<T, P> const& c,
+		tvec2<T, P> const& d
+	)
+	{
+		return (isLeft(a, b, c) ^ isLeft(a, b, d))
+				&& (isLeft(c, d, a) ^ isLeft(c, d, b));
+	}
+
+	template <typename T, precision P>
+	GLM_FUNC_QUALIFIER bool intersectLineLineProper
+	(
+		tvec2<T, P> const& a,
+		tvec2<T, P> const& b,
+		tvec2<T, P> const& c,
+		tvec2<T, P> const& d
+	)
+	{
+		T Epsilon = std::numeric_limits<T>::epsilon();
+		if (epsilonEqual(detail::area2(a, b, c), 0.0f, Epsilon) ||
+				epsilonEqual(detail::area2(a, b, d), 0.0f, Epsilon) ||
+				epsilonEqual(detail::area2(c, d, a), 0.0f, Epsilon) ||
+				epsilonEqual(detail::area2(c, d, b), 0.0f, Epsilon))
+			// If any triple of points here is collinear...
+			return false;
+
+		return intersectLineLine(a, b, c, d);
+	}
 }//namespace glm
