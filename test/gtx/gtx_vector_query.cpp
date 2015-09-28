@@ -110,6 +110,19 @@ int test_isLeft()
 	return Error;
 }
 
+int test_isLeftOrOn()
+{
+	int Error(0);
+
+	Error += isLeftOrOn(vec2(0, 2), vec2(2, 0), vec2(1, 1)) ? 0 : 1;
+	Error += isLeftOrOn(vec2(0, 2), vec2(2, 0), vec2(2, 2)) ? 0 : 1;
+	Error += isLeftOrOn(ivec2(0, 2), ivec2(2, 0), ivec2(0, 5)) ? 0 : 1;
+	Error += isLeftOrOn(dvec2(0, 2), dvec2(2, 0), dvec2(-1, 5)) ? 0 : 1;
+	Error += !isLeftOrOn(vec2(0, 2), vec2(2, 0), vec2(0, 0)) ? 0 : 1;
+
+	return Error;
+}
+
 int main()
 {
 	int Error(0);
@@ -120,6 +133,7 @@ int main()
 	Error += test_isNull();
 	Error += test_areOrthonormal();
 	Error += test_isLeft();
+	Error += test_isLeftOrOn();
 
 	return Error;
 }
