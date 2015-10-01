@@ -243,4 +243,18 @@ namespace glm
 
 		return intersectLineLine(a, b, c, d);
 	}
+
+	template <typename T, precision P>
+	GLM_FUNC_QUALIFIER bool overlapSegment
+	(
+		tvec2<T, P> const& a,
+		tvec2<T, P> const& b,
+		tvec2<T, P> const& c,
+		tvec2<T, P> const& d
+	)
+	{
+		return areCollinear(a, b, c) && areCollinear(a, b, d)
+				&& a != c && a != d
+				&& b != c && b != d;
+	}
 }//namespace glm

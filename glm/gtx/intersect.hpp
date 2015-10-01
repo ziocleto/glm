@@ -135,6 +135,18 @@ namespace glm
 			tvec2<T, P> const& c,
 			tvec2<T, P> const& d
 			);
+
+	///! Returns true if the two given line segments properly overlap one another
+	/// (i.e. they're collinear and their intersection is a line segment of non-zero
+	/// length).
+	/// From GLM_GTX_intersect extension
+	template <typename T, precision P = defaultp>
+	GLM_FUNC_DECL bool overlapSegment(
+			tvec2<T, P> const& a,
+			tvec2<T, P> const& b,
+			tvec2<T, P> const& c,
+			tvec2<T, P> const& d
+			);
 	/// @}
 }//namespace glm
 
