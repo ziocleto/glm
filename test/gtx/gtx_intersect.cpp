@@ -57,12 +57,26 @@ int test_LineLineProper() {
 	return Error;
 }
 
+int test_overlapSegment() {
+	int Error(0);
+
+	Error += !overlapSegment(vec2(0, 1), vec2(2, 1), vec2(1, 1), vec2(1, 2)) ? 0 : 1;
+	Error += !overlapSegment(vec2(0, 1), vec2(2, 1), vec2(1, 2), vec2(1, 1)) ? 0 : 1;
+	Error += !overlapSegment(vec2(0, 0), vec2(0, 1), vec2(0, 1), vec2(0, 2)) ? 0 : 1;
+	Error += overlapSegment(vec2(0, 0), vec2(0, 1), vec2(0, 0.5), vec2(0, 2)) ? 0 : 1;
+	Error += overlapSegment(vec2(0.5, 1), vec2(2, 2.5), vec2(1, 1.5), vec2(1.5, 2)) ? 0 : 1;
+	Error += !overlapSegment(vec2(0.5, 1), vec2(2, 2.5), vec2(1, 1.51), vec2(1.5, 2)) ? 0 : 1;
+
+	return Error;
+}
+
 int main()
 {
 	int Error(0);
 
 	Error += test_LineLine();
 	Error += test_LineLineProper();
+	Error += test_overlapSegment();
 
 	return Error;
 }

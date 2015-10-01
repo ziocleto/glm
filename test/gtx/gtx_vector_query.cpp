@@ -55,6 +55,16 @@ int test_areCollinear()
 		Error += TestA ? 0 : 1;
 	}
 
+	{
+		bool TestA = glm::areCollinear(glm::vec2(0, 0), glm::vec2(1, 1), glm::vec2(2, 2));
+		Error += TestA ? 0 : 1;
+	}
+
+	{
+		bool TestA = glm::areCollinear(glm::vec2(0, 0), glm::vec2(1, 1), glm::vec2(4, 2));
+		Error += !TestA ? 0 : 1;
+	}
+
 	return Error;
 }
 
