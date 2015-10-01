@@ -32,7 +32,7 @@
 
 namespace glm {
 namespace detail {
-template<typename T, precision P = defaultp, typename areaType = float>
+template<typename T, precision P, typename areaType = float>
 GLM_FUNC_QUALIFIER areaType area2(const tvec2<T, P>& a, const tvec2<T, P>& b, const tvec2<T, P>& c) {
 	return (b.x - a.x) * (c.y - a.y) - (c.x - a.x) * (b.y - a.y);
 }
@@ -40,6 +40,6 @@ GLM_FUNC_QUALIFIER areaType area2(const tvec2<T, P>& a, const tvec2<T, P>& b, co
 
 template<typename T, precision P, typename areaType>
 GLM_FUNC_QUALIFIER areaType area(const tvec2<T, P>& a, const tvec2<T, P>& b, const tvec2<T, P>& c) {
-	return detail::area2(a, b, c) / static_cast<areaType>(2.0);
+	return detail::area2<T, P, areaType>(a, b, c) / static_cast<areaType>(2.0);
 }
 }//namespace glm

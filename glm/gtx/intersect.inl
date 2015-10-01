@@ -234,10 +234,10 @@ namespace glm
 	)
 	{
 		T Epsilon = std::numeric_limits<T>::epsilon();
-		if (epsilonEqual(detail::area2(a, b, c), 0.0f, Epsilon) ||
-				epsilonEqual(detail::area2(a, b, d), 0.0f, Epsilon) ||
-				epsilonEqual(detail::area2(c, d, a), 0.0f, Epsilon) ||
-				epsilonEqual(detail::area2(c, d, b), 0.0f, Epsilon))
+		if (epsilonEqual(detail::area2<T, P, float>(a, b, c), 0.0f, Epsilon) ||
+				epsilonEqual(detail::area2<T, P, float>(a, b, d), 0.0f, Epsilon) ||
+				epsilonEqual(detail::area2<T, P, float>(c, d, a), 0.0f, Epsilon) ||
+				epsilonEqual(detail::area2<T, P, float>(c, d, b), 0.0f, Epsilon))
 			// If any triple of points here is collinear...
 			return false;
 
