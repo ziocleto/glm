@@ -44,6 +44,8 @@
 // Dependency:
 #include "../glm.hpp"
 #include "../gtx/area.hpp"
+#include "../gtc/epsilon.hpp"
+#include "../gtc/constants.hpp"
 #include <cfloat>
 #include <limits>
 
@@ -60,7 +62,12 @@ namespace glm
 	/// @see gtx_vector_query extensions.
 	template <typename T, precision P, template <typename, precision> class vecType>
 	GLM_FUNC_DECL bool areCollinear(vecType<T, P> const & v0, vecType<T, P> const & v1, T const & epsilon);
-		
+
+	//! Returns true if the three given points are collinear.
+	/// @see gtx_vector_query extensions
+	template<typename T, precision P = defaultp>
+	GLM_FUNC_DECL bool areCollinear(tvec2<T, P> const& a, tvec2<T, P> const& b, tvec2<T, P> const& c);
+
 	//! Check whether two vectors are orthogonals.
 	/// @see gtx_vector_query extensions.
 	template <typename T, precision P, template <typename, precision> class vecType>
