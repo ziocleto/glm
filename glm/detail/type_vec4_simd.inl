@@ -170,6 +170,61 @@ namespace detail
 			return Result;
 		}
 	};
+/*
+	template <precision P>
+	struct compute_vec4_equal<float, P>
+	{
+		static bool call(tvec4<float, P> const & a, tvec4<float, P> const & b)
+		{
+			return _mm_movemask_ps(_mm_cmpeq_ps(a.data, b.data)) == 0x0F;
+		}
+	};
+	
+	template <precision P>
+	struct compute_vec4_equal<int32, P>
+	{
+		static bool call(tvec4<int32, P> const & a, tvec4<int32, P> const & b)
+		{
+			return _mm_movemask_ps(_mm_castsi128_ps(_mm_cmpeq_epi32(a.data, b.data))) == 0x0F;
+		}
+	};
+	
+	template <precision P>
+	struct compute_vec4_equal<uint32, P>
+	{
+		static bool call(tvec4<uint32, P> const & a, tvec4<uint32, P> const & b)
+		{
+			return _mm_movemask_ps(_mm_castsi128_ps(_mm_cmpeq_epi32(a.data, b.data))) == 0x0F;
+		}
+	};
+	
+	template <precision P>
+	struct compute_vec4_nequal<float, P>
+	{
+		static bool call(tvec4<float, P> const & a, tvec4<float, P> const & b)
+		{
+			return _mm_movemask_ps(_mm_cmpeq_ps(a.data, b.data)) != 0;
+		}
+	};
+	
+	template <precision P>
+	struct compute_vec4_nequal<int32, P>
+	{
+		static bool call(tvec4<int32, P> const & a, tvec4<int32, P> const & b)
+		{
+			return _mm_movemask_ps(_mm_castsi128_ps(_mm_cmpeq_epi32(a.data, b.data))) != 0;
+		}
+	};
+	
+	template <precision P>
+	struct compute_vec4_nequal<uint32, P>
+	{
+		static bool call(tvec4<uint32, P> const & a, tvec4<uint32, P> const & b)
+		{
+			return _mm_movemask_ps(_mm_castsi128_ps(_mm_cmpeq_epi32(a.data, b.data))) != 0;
+		}
+	};
+*/
 }//namespace detail
 
 #	if !GLM_HAS_DEFAULTED_FUNCTIONS

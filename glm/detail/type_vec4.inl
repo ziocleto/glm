@@ -93,6 +93,24 @@ namespace detail
 			return tvec4<T, P>(a.x >> b.x, a.y >> b.y, a.z >> b.z, a.w >> b.w);
 		}
 	};
+	
+	template <typename T, precision P>
+	struct compute_vec4_equal
+	{
+		static bool call(tvec4<T, P> const & a, tvec4<T, P> const & b)
+		{
+			return (a.x == b.x) && (a.y == b.y) && (a.z == b.z) && (a.w == b.w);
+		}
+	};
+
+	template <typename T, precision P>
+	struct compute_vec4_nequal
+	{
+		static bool call(tvec4<T, P> const & a, tvec4<T, P> const & b)
+		{
+			return (a.x != b.x) || (a.y != b.y) || (a.z != b.z) || (a.w != b.w);
+		}
+	};
 }//namespace detail
 
 	// -- Implicit basic constructors --
@@ -401,21 +419,23 @@ namespace detail
 	template <typename T, precision P>
 	GLM_FUNC_QUALIFIER tvec4<T, P> & tvec4<T, P>::operator++()
 	{
-		++this->x;
-		++this->y;
-		++this->z;
-		++this->w;
-		return *this;
+#		if(1 || GLM_ARCH == GLM_ARCH_PURE)
+			++this->x; ++this->y; ++this->z; ++this->w;
+			return *this;
+#		else
+			return (*this = detail::compute_vec4_add<T, P>::call(*this, tvec4<T, P>(1)));
+#		endif
 	}
 
 	template <typename T, precision P>
 	GLM_FUNC_QUALIFIER tvec4<T, P> & tvec4<T, P>::operator--()
 	{
-		--this->x;
-		--this->y;
-		--this->z;
-		--this->w;
-		return *this;
+#		if(1 || GLM_ARCH == GLM_ARCH_PURE)
+			--this->x; --this->y; --this->z; --this->w;
+			return *this;
+#		else
+			return (*this = detail::compute_vec4_sub<T, P>::call(*this, tvec4<T, P>(1)));
+#		endif
 	}
 
 	template <typename T, precision P> 
@@ -891,13 +911,13 @@ namespace detail
 	template <typename T, precision P>
 	GLM_FUNC_QUALIFIER bool operator==(tvec4<T, P> const & v1, tvec4<T, P> const & v2)
 	{
-		return (v1.x == v2.x) && (v1.y == v2.y) && (v1.z == v2.z) && (v1.w == v2.w);
+		return detail::compute_vec4_equal<T, P>::call(v1 ,v2);
 	}
 
 	template <typename T, precision P>
 	GLM_FUNC_QUALIFIER bool operator!=(tvec4<T, P> const & v1, tvec4<T, P> const & v2)
 	{
-		return (v1.x != v2.x) || (v1.y != v2.y) || (v1.z != v2.z) || (v1.w != v2.w);
+		return detail::compute_vec4_nequal<T, P>::call(v1 ,v2);
 	}
 
 	template <precision P>
