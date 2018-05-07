@@ -51,6 +51,10 @@ glm::mat4 camera(float Translate, glm::vec2 const & Rotate)
 
 ## Release notes
 
+#### [GLM 0.9.8.6](https://github.com/g-truc/glm/tree/0.9.8)
+##### Fixes:
+- Fixed GCC 7.3 build error #751
+
 #### [GLM 0.9.8.5](https://github.com/g-truc/glm/releases/tag/0.9.8.5) - 2017-08-16
 ##### Features:
 - Added Conan package support #647
