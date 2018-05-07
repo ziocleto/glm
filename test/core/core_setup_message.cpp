@@ -86,6 +86,9 @@ int test_compiler()
 		case GLM_COMPILER_GCC72:
 			std::printf("GCC 7.2\n");
 			break;
+		case GLM_COMPILER_GCC73:
+			std::printf("GCC 7.3\n");
+			break;
 		case GLM_COMPILER_GCC80:
 			std::printf("GCC 8.0\n");
 			break;
