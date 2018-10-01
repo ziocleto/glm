@@ -18,6 +18,7 @@ glmCreateTestGTC(ext_vector_bool1)
 glmCreateTestGTC(ext_vector_common)
 glmCreateTestGTC(ext_vector_iec559)
 glmCreateTestGTC(ext_vector_integer)
+glmCreateTestGTC(ext_vector_packing)
 glmCreateTestGTC(ext_vector_relational)
 glmCreateTestGTC(ext_vector_ulp)
 
