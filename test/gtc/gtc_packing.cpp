@@ -57,31 +57,63 @@ void print_value(float const& s)
 	printf("\n");
 }
 
-int test_Half1x16()
+static int test_half1x16()
 {
 	int Error = 0;
 
-	std::vector<float> Tests;
-	Tests.push_back(0.0f);
-	Tests.push_back(1.0f);
-	Tests.push_back(-1.0f);
-	Tests.push_back(2.0f);
-	Tests.push_back(-2.0f);
-	Tests.push_back(1.9f);
+	std::vector<glm::vec1> Tests;
+	Tests.push_back(glm::vec1(1.0f));
+	Tests.push_back(glm::vec1(0.0f));
+	Tests.push_back(glm::vec1(2.0f));
+	Tests.push_back(glm::vec1(0.1f));
+	Tests.push_back(glm::vec1(0.5f));
+	Tests.push_back(glm::vec1(-0.9f));
 
 	for(std::size_t i = 0; i < Tests.size(); ++i)
 	{
 		glm::uint16 p0 = glm::packHalf1x16(Tests[i]);
-		float v0 = glm::unpackHalf1x16(p0);
+		glm::vec1 v0 = glm::unpackHalf1x16(p0);
 		glm::uint16 p1 = glm::packHalf1x16(v0);
-		float v1 = glm::unpackHalf1x16(p1);
-		Error += glm::epsilonEqual(v0, v1, glm::epsilon<float>()) ? 0 : 1;
+		glm::vec1 v1 = glm::unpackHalf1x16(p1);
+		glm::u16vec1 p2 = glm::packHalf(v0);
+		glm::vec1 v2 = glm::unpackHalf(p2);
+
+		Error += glm::all(glm::equal(v0, v1, glm::epsilon<float>())) ? 0 : 1;
+		Error += glm::all(glm::equal(v0, v2, glm::epsilon<float>())) ? 0 : 1;
 	}
 
 	return Error;
 }
 
-int test_Half4x16()
+static int test_half2x16()
+{
+	int Error = 0;
+
+	std::vector<glm::vec2> Tests;
+	Tests.push_back(glm::vec2(1.0f));
+	Tests.push_back(glm::vec2(0.0f));
+	Tests.push_back(glm::vec2(2.0f));
+	Tests.push_back(glm::vec2(0.1f));
+	Tests.push_back(glm::vec2(0.5f));
+	Tests.push_back(glm::vec2(-0.9f));
+
+	for(std::size_t i = 0; i < Tests.size(); ++i)
+	{
+		glm::uint32 p0 = glm::packHalf2x16(Tests[i]);
+		glm::vec2 v0 = glm::unpackHalf2x16(p0);
+		glm::uint32 p1 = glm::packHalf2x16(v0);
+		glm::vec2 v1 = glm::unpackHalf2x16(p1);
+		glm::u16vec2 p2 = glm::packHalf(v0);
+		glm::vec2 v2 = glm::unpackHalf(p2);
+
+		Error += glm::all(glm::equal(v0, v1, glm::epsilon<float>())) ? 0 : 1;
+		Error += glm::all(glm::equal(v0, v2, glm::epsilon<float>())) ? 0 : 1;
+	}
+
+	return Error;
+}
+
+static int test_half4x16()
 {
 	int Error = 0;
 
@@ -871,8 +903,10 @@ int main()
 
 	Error += test_I3x10_1x2();
 	Error += test_U3x10_1x2();
-	Error += test_Half1x16();
-	Error += test_Half4x16();
+
+	Error += test_half1x16();
+	Error += test_half2x16();
+	Error += test_half4x16();
 
 	return Error;
 }

@@ -14,7 +14,9 @@
 #pragma once
 
 // Dependency:
-#include "type_precision.hpp"
+#include "../gtc/type_precision.hpp"
+#include "../ext/scalar_packing.hpp"
+#include "../ext/vector_packing.hpp"
 
 #if GLM_MESSAGES == GLM_ENABLE && !defined(GLM_EXT_INCLUDED)
 #	pragma message("GLM: GLM_GTC_packing extension included")
@@ -265,7 +267,7 @@ namespace glm
 	/// @see uint64 packHalf4x16(vec4 const& v)
 	/// @see <a href="http://www.opengl.org/sdk/docs/manglsl/xhtml/packHalf2x16.xml">GLSL packHalf2x16 man page</a>
 	/// @see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 8.4 Floating-Point Pack and Unpack Functions</a>
-	GLM_FUNC_DECL uint16 packHalf1x16(float v);
+	GLM_FUNC_DECL uint16 packHalf1x16(vec1 v);
 
 	/// Returns a floating-point scalar with components obtained by unpacking a 16-bit unsigned integer into a 16-bit value,
 	/// interpreted as a 16-bit floating-point number according to the OpenGL Specification,
@@ -276,7 +278,7 @@ namespace glm
 	/// @see vec4 unpackHalf4x16(uint64 const& v)
 	/// @see <a href="http://www.opengl.org/sdk/docs/manglsl/xhtml/unpackHalf2x16.xml">GLSL unpackHalf2x16 man page</a>
 	/// @see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 8.4 Floating-Point Pack and Unpack Functions</a>
-	GLM_FUNC_DECL float unpackHalf1x16(uint16 v);
+	GLM_FUNC_DECL vec1 unpackHalf1x16(uint16 v);
 
 	/// Returns an unsigned integer obtained by converting the components of a four-component floating-point vector
 	/// to the 16-bit floating-point representation found in the OpenGL Specification,
@@ -490,27 +492,6 @@ namespace glm
 	template<length_t L, typename T, qualifier Q>
 	GLM_FUNC_DECL vec<3, T, Q> unpackRGBM(vec<4, T, Q> const& rgbm);
 
-	/// Returns an unsigned integer vector obtained by converting the components of a floating-point vector
-	/// to the 16-bit floating-point representation found in the OpenGL Specification.
-	/// The first vector component specifies the 16 least-significant bits of the result;
-	/// the forth component specifies the 16 most-significant bits.
-	///
-	/// @see gtc_packing
-	/// @see vec<L, float, Q> unpackHalf(vec<L, uint16, Q> const& p)
-	/// @see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 8.4 Floating-Point Pack and Unpack Functions</a>
-	template<length_t L, qualifier Q>
-	GLM_FUNC_DECL vec<L, uint16, Q> packHalf(vec<L, float, Q> const& v);
-
-	/// Returns a floating-point vector with components obtained by reinterpreting an integer vector as 16-bit floating-point numbers and converting them to 32-bit floating-point values.
-	/// The first component of the vector is obtained from the 16 least-significant bits of v;
-	/// the forth component is obtained from the 16 most-significant bits of v.
-	///
-	/// @see gtc_packing
-	/// @see vec<L, uint16, Q> packHalf(vec<L, float, Q> const& v)
-	/// @see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 8.4 Floating-Point Pack and Unpack Functions</a>
-	template<length_t L, qualifier Q>
-	GLM_FUNC_DECL vec<L, float, Q> unpackHalf(vec<L, uint16, Q> const& p);
-
 	/// Convert each component of the normalized floating-point vector into unsigned integer values.
 	///
 	/// @see gtc_packing
@@ -720,7 +701,6 @@ namespace glm
 	/// @see gtc_packing
 	/// @see int packUint2x16(u32vec2 const& v)
 	GLM_FUNC_DECL u32vec2 unpackUint2x32(uint64 p);
-
 
 	/// @}
 }// namespace glm
