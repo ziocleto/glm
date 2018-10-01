@@ -85,13 +85,13 @@ namespace detail
 }//namespace detail
 
 	template<length_t L, qualifier Q>
-	GLM_FUNC_QUALIFIER vec<L, uint16, Q> packHalf(vec<L, float, Q> const& v)
+	GLM_FUNC_QUALIFIER vec<L, uint16, Q> packFloatToHalf(vec<L, float, Q> const& v)
 	{
 		return detail::compute_half<L, Q>::pack(v);
 	}
 
 	template<length_t L, qualifier Q>
-	GLM_FUNC_QUALIFIER vec<L, float, Q> unpackHalf(vec<L, uint16, Q> const& v)
+	GLM_FUNC_QUALIFIER vec<L, float, Q> unpackHalfToFloat(vec<L, uint16, Q> const& v)
 	{
 		return detail::compute_half<L, Q>::unpack(v);
 	}

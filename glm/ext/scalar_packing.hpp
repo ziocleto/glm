@@ -32,14 +32,14 @@ namespace glm
 	/// the forth component specifies the 16 most-significant bits.
 	///
 	/// @see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 8.4 Floating-Point Pack and Unpack Functions</a>
-	GLM_FUNC_DECL uint16 packHalf(float s);
+	GLM_FUNC_DECL uint16 packFloatToHalf(float s);
 
 	/// Returns a floating-point scalar with components obtained by reinterpreting an integer scalar as 16-bit floating-point numbers and converting them to 32-bit floating-point values.
 	/// The first component of the vector is obtained from the 16 least-significant bits of v;
 	/// the forth component is obtained from the 16 most-significant bits of v.
 	///
 	/// @see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 8.4 Floating-Point Pack and Unpack Functions</a>
-	GLM_FUNC_DECL float unpackHalf(uint16 p);
+	GLM_FUNC_DECL float unpackHalfToFloat(uint16 p);
 
 	/// @}
 }//namespace glm

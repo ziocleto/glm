@@ -17,12 +17,12 @@ static int test_half()
 
 	for(std::size_t i = 0; i < Tests.size(); ++i)
 	{
-		glm::uint16 p0 = glm::packHalf(Tests[i]);
-		float v0 = glm::unpackHalf(p0);
+		glm::uint16 p0 = glm::packFloatToHalf(Tests[i]);
+		float v0 = glm::unpackHalfToFloat(p0);
 		Error += glm::equal(v0, Tests[i], 0.01f) ? 0 : 1;
 
-		glm::uint16 p1 = glm::packHalf(v0);
-		float v1 = glm::unpackHalf(p1);
+		glm::uint16 p1 = glm::packFloatToHalf(v0);
+		float v1 = glm::unpackHalfToFloat(p1);
 		Error += glm::equal(v1, Tests[i], 0.01f) ? 0 : 1;
 
 		Error += glm::equal(v0, v1, 0) ? 0 : 1;

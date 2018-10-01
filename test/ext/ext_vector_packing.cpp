@@ -42,15 +42,15 @@ static int test_half()
 	{
 		vecFType const Data = Tests[i].Data;
 
-		vecUType const p0 = glm::packHalf(Data);
+		vecUType const p0 = glm::packFloatToHalf(Data);
 
-		vecFType const v0 = glm::unpackHalf(p0);
+		vecFType const v0 = glm::unpackHalfToFloat(p0);
 		Error += glm::all(glm::equal(v0, Data, Epsilon)) ? 0 : 1;
 
-		vecUType const p1 = glm::packHalf(v0);
+		vecUType const p1 = glm::packFloatToHalf(v0);
 		Error += glm::all(glm::equal(p0, p1)) ? 0 : 1;
 
-		vecFType const v1 = glm::unpackHalf(p1);
+		vecFType const v1 = glm::unpackHalfToFloat(p1);
 		Error += glm::all(glm::equal(v1, Data, Epsilon)) ? 0 : 1;
 
 		vecIType const ULPs = glm::float_distance(Data, v0);

@@ -576,6 +576,18 @@ namespace detail
 		return vec<3, T, Q>(rgbm.x, rgbm.y, rgbm.z) * rgbm.w * static_cast<T>(6);
 	}
 
+	template<length_t L, qualifier Q>
+	GLM_FUNC_QUALIFIER vec<L, uint16, Q> packHalf(vec<L, float, Q> const& v)
+	{
+		return detail::compute_half<L, Q>::pack(v);
+	}
+
+	template<length_t L, qualifier Q>
+	GLM_FUNC_QUALIFIER vec<L, float, Q> unpackHalf(vec<L, uint16, Q> const& v)
+	{
+		return detail::compute_half<L, Q>::unpack(v);
+	}
+
 	template<typename uintType, length_t L, typename floatType, qualifier Q>
 	GLM_FUNC_QUALIFIER vec<L, uintType, Q> packUnorm(vec<L, floatType, Q> const& v)
 	{
