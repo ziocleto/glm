@@ -1,7 +1,6 @@
 #include <glm/ext/scalar_int_sized.hpp>
 #include <glm/ext/scalar_packing.hpp>
 #include <glm/ext/scalar_relational.hpp>
-#include <glm/ext/scalar_constants.hpp>
 #include <vector>
 
 static int test_half()
@@ -20,9 +19,13 @@ static int test_half()
 	{
 		glm::uint16 p0 = glm::packHalf(Tests[i]);
 		float v0 = glm::unpackHalf(p0);
+		Error += glm::equal(v0, Tests[i], 0.01f) ? 0 : 1;
+
 		glm::uint16 p1 = glm::packHalf(v0);
 		float v1 = glm::unpackHalf(p1);
-		Error += glm::equal(v0, v1, glm::epsilon<float>()) ? 0 : 1;
+		Error += glm::equal(v1, Tests[i], 0.01f) ? 0 : 1;
+
+		Error += glm::equal(v0, v1, 0) ? 0 : 1;
 	}
 
 	return Error;
