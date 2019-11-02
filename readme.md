@@ -63,6 +63,9 @@ glm::mat4 camera(float Translate, glm::vec2 const& Rotate)
 - Fixed for intersection ray/plane and added related tests #953
 - Fixed ARM 64bit detection #949
 
+#### Deprecation:
+- Readded install/uninstall CMake scripts unmaintained.
+
 ### [GLM 0.9.9.6](https://github.com/g-truc/glm/releases/tag/0.9.9.6) - 2019-09-08
 #### Features:
 - Added Neon support #945
@@ -88,7 +91,7 @@ glm::mat4 camera(float Translate, glm::vec2 const& Rotate)
 - Fixed CUDA 9 build #910
 
 #### Deprecation:
- - Removed CMake install and uninstall scripts
+- Removed CMake install and uninstall scripts
 
 ### [GLM 0.9.9.5](https://github.com/g-truc/glm/releases/tag/0.9.9.5) - 2019-04-01
 #### Fixes:
