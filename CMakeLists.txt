@@ -3,7 +3,9 @@ cmake_policy(VERSION 3.2)
 
 set(GLM_VERSION "0.9.9")
 project(glm VERSION ${GLM_VERSION} LANGUAGES CXX)
+if ( BUILD_TESTS )
 enable_testing()
+endif()
 
 add_subdirectory(glm)
 add_library(glm::glm ALIAS glm)
@@ -13,3 +15,5 @@ if(${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_CURRENT_SOURCE_DIR})
 add_subdirectory(test)
 
 endif(${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_CURRENT_SOURCE_DIR})
+
+install(DIRECTORY ${PROJECT_SOURCE_DIR}/glm DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
